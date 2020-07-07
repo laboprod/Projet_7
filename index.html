@@ -4,15 +4,45 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js" />
 		<link href="style.css" rel="stylesheet" />
+		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
+
 		<title>Google Map</title>
 	</head>
 	<body>
-		<h1>Google Map</h1>
-		<div id="map"></div>
-		<div id="list"></div>
-	</body>
+		<section id="header" class="container-fluid">
+			<div class="row text-center">
+				<div id="logo" class="col mt-2">
+					<img id="logo-img" alt="Logo" src="img/logo3.png" />
+				</div>
+			</div>
+		</section>
 
-	<script src="map.js"></script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBuqGWfwnf0jqwfu8WJprNaJoLcD00sol4&callback=initMap"></script>
+		<section class="container" id="body-section">
+			<div id="map"></div>
+			<div id="list">
+				<div class="accordion">
+					<button type="button" class="accordion_button">Restaurant <span> /ratings-</span></button>
+					<div class="accordion_content">
+						<p>fkowfoefowefowfewowfkoweoefkwofkowfkoewfkowfowefeofkwofowkfowfofowfokfoekfwo</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+		<script src="./js/main.js"></script>
+		<script src="./js/Carte.js"></script>
+		<script src="./js/Restaurant.js"></script>
+		<script src="./js/restaurants-json.js"></script>
+		<script
+			async
+			defer
+			src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBuqGWfwnf0jqwfu8WJprNaJoLcD00sol4&callback=start"
+		></script>
+	</body>
 </html>
