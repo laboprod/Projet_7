@@ -7,10 +7,6 @@ function start() {
 		center: { lat: 48.8566969, lng: 2.3514616 },
 		zoom: 10,
 	});
-	// let carte = new Carte(document.getElementById('map'), {
-	// 	zoom: 10,
-	// 	center: { lat: 45.91971, lng: 6.14393 },
-	// });
 
 	carte = new Carte(map);
 
@@ -18,25 +14,17 @@ function start() {
 
 	for (let i = 0; i < restaurants.length; i++) {
 		let restauJson = restaurants[i];
-		let restaurant = new Restaurant(restauJson);
-		carte.addMarker({
-			coords: {
-				lat: restaurant.lat,
-				lng: restaurant.lng,
-			},
-			iconImage: 'http://maps.google.com/mapfiles/kml/shapes/dining.png',
-			content: `<h1>${restaurant.name}</h1>`,
-		});
+		let restaurant = new Restaurant(restauJson, carte);
 
-		let name = `<button type="button" class="accordion_button">${restaurant.name}<button>`;
-		$('.accordion').append(name);
-		let address = `<div class="accordion_content">${restaurant.address}<div>`;
-		$('.accordion_content').append(address);
+		restaurant.showOnMap();
+		restaurant.showDetails();
 	}
 }
 
-document.querySelectorAll('.accordion_button').forEach((button) => {
-	button.addEventListener('click', () => {
-		button.classList.toggle('accordion_button--active');
+function showAccordion() {
+	document.querySelectorAll('.accordion_button').forEach((button) => {
+		button.addEventListener('click', () => {
+			button.classList.toggle('accordion_button--active');
+		});
 	});
-});
+}
