@@ -55,7 +55,7 @@ class Restaurant {
 					<i class="fa fa-star"></i>
 					<i class="fa fa-star"></i>
 				</div>
-			</div>`;
+			</div> &nbsp ${this.ratings.length} avis`;
 	}
 
 	// convertRatingToStars(rate, container) {
@@ -75,7 +75,7 @@ class Restaurant {
 	// 				<i class="fa fa-star"></i>
 	// 				<i class="fa fa-star"></i>
 	// 			</div>
-	// 		</div>`;
+	// 		</div> &nbsp ${this.ratings.length} avis`;
 	// }
 
 	showList() {
