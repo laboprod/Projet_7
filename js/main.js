@@ -17,14 +17,7 @@ function start() {
 		let restaurant = new Restaurant(restauJson, carte);
 
 		restaurant.showOnMap();
-		restaurant.showDetails();
+		restaurant.showList();
+		restaurant.getStreetViewImage();
 	}
-}
-
-function showAccordion() {
-	document.querySelectorAll('.accordion_button').forEach((button) => {
-		button.addEventListener('click', () => {
-			button.classList.toggle('accordion_button--active');
-		});
-	});
 }

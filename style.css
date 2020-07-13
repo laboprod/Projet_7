@@ -1,76 +1,156 @@
 body {
-	background: #fff;
-	color: #23272b;
+  background: #fff;
+  color: #23272b;
 }
 
 #body-section {
-	height: calc(100vh - 310px);
+  height: calc(100vh - 310px);
 }
 
 #header {
-	height: 250px;
-	background-image: url(img/header-bg.jpg);
-	background-color: #fff;
-	background-size: cover;
-	background-position: center center;
-	background-repeat: no-repeat;
-	text-align: center;
+  height: 250px;
+  background-image: url(img/header-bg.jpg);
+  background-color: #fff;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  text-align: center;
 }
 
 #header #logo-img {
-	width: 300px;
+  width: 300px;
 }
 
 .container {
-	display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 #map {
-	width: 60%;
-	height: 100vh;
+  width: 60%;
+  height: 100vh;
 }
 
 #list {
-	width: 40%;
-	height: 100vh;
+  width: 40%;
+  height: 100vh;
 }
 
-.accordion_button {
-	display: block;
-	width: 100%;
-	padding: 15px;
-	border: none;
-	outline: none;
-	cursor: pointer;
-	background: #333333;
-	color: #fff;
-	text-align: left;
-	transition: background 0.2s;
+.ratings {
+  font-size: 0.8rem;
+  line-height: 1.5rem;
 }
 
-.accordion_button::after {
-	content: '\25be';
-	float: right;
-	transform: scale(1.5);
+.ratings .stars-outer {
+  display: inline-block;
+  position: relative;
+  content: '\f005 \f005 \f005 \f005 \f005';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #ccc;
 }
 
-.accordion_button--active + .accordion_content {
-	display: block;
+.ratings .stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  content: '\f005 \f005 \f005 \f005 \f005';
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  color: #f8ce0b;
 }
 
-.accordion_button--active {
-	background: #555555;
-}
-.accordion_button--active::after {
-	content: '\25b4';
+.restaurants {
+  padding: 60px 25px;
 }
 
-.accordion_content {
-	/* overflow: hidden;
-	max-height: 0;
-	transition: max-height 0.2s; */
-	padding: 0 15px;
-	background: #eeeeee;
-	display: none;
-	overflow: auto;
+.restaurants .restaurant {
+  display: block;
+  width: 100%;
+  max-width: 768px;
+  margin: 15px auto;
+  padding: 15px;
+  background-color: #fff;
+  border-radius: 8px;
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
+
+.restaurants .restaurant .name {
+  position: relative;
+  color: #3c3c3c;
+  font-size: 20px;
+  -webkit-transition: all 0.4s linear;
+  transition: all 0.4s linear;
+}
+
+.restaurants .restaurant .name:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  -webkit-transform: translateY(-50%) rotate(0deg);
+          transform: translateY(-50%) rotate(0deg);
+  width: 30px;
+  height: 30px;
+  background-image: url("./arrow-down-mint.svg");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  -webkit-transition: all 0.4s linear;
+  transition: all 0.4s linear;
+}
+
+.restaurants .restaurant .address {
+  opacity: 0;
+  max-height: 0px;
+  -webkit-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+  color: #3c3c3c;
+  font-size: 18px;
+}
+
+.restaurants .restaurant .streetView {
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.restaurants .restaurant .comment {
+  opacity: 0;
+  max-height: 0px;
+}
+
+.restaurants .restaurant.open .name {
+  margin-bottom: 15px;
+}
+
+.restaurants .restaurant.open .name:after {
+  -webkit-transform: translateY(-50%) rotate(180deg);
+          transform: translateY(-50%) rotate(180deg);
+}
+
+.restaurants .restaurant.open .address {
+  opacity: 1;
+  max-height: 1000px;
+}
+
+.restaurants .restaurant.open .streetView {
+  opacity: 1;
+  max-height: 500px;
+}
+
+.restaurants .restaurant.open .comment {
+  background-color: #fff;
+  border-radius: 8px;
+  -webkit-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  opacity: 1;
+  max-height: 1000px;
+  margin-top: 10px;
+}
+/*# sourceMappingURL=style.css.map */

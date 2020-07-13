@@ -5,14 +5,18 @@ let restaurants = [
 		lat: 48.8737815,
 		long: 2.3501649,
 		ratings: [
-			{
-				stars: 4,
-				comment: "Un excellent restaurant, j'y reviendrai ! Par contre il vaut mieux aimer la viande.",
-			},
-			{
-				stars: 5,
-				comment: 'Tout simplement mon restaurant préféré !',
-			},
+			// {
+			// 	stars: 4,
+			// 	comment: "Un excellent restaurant, j'y reviendrai ! Par contre il vaut mieux aimer la viande.",
+			// },
+			// {
+			// 	stars: 1,
+			// 	comment: 'A éviter, service très long, légumes surgelés...',
+			// },
+			// {
+			// 	stars: 5,
+			// 	comment: 'Tout simplement mon restaurant préféré !',
+			// },
 		],
 	},
 	{
