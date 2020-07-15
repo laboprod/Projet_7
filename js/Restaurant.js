@@ -113,6 +113,11 @@ class Restaurant {
 		restaurant_address_element.innerText = this.address;
 		restaurant_element.appendChild(restaurant_address_element);
 
+		// Pour afficher l'image google streetView //
+		const restaurant_streetView_element = document.createElement('img');
+		restaurant_streetView_element.classList.add('streetView');
+		restaurant_element.appendChild(restaurant_streetView_element);
+
 		// Pour afficher les commentaires //
 		this.ratings.forEach((comment) => {
 			const containerComment = document.createElement('div');
@@ -124,17 +129,12 @@ class Restaurant {
 			restaurant_element.appendChild(containerComment);
 		});
 
-		// Pour afficher l'image google streetView //
-		const restaurant_streetView_element = document.createElement('img');
-		restaurant_streetView_element.classList.add('streetView');
-		restaurant_element.appendChild(restaurant_streetView_element);
-
 		//Pour tout afficher dans la div restaurants //
 		restaurants_element.appendChild(restaurant_element);
 	}
 
 	getStreetViewImage() {
-		let image = `https://maps.googleapis.com/maps/api/streetview?location=${this.lat},${this.lng}&size=400x300&key=AIzaSyBuqGWfwnf0jqwfu8WJprNaJoLcD00sol4`;
+		let image = `https://maps.googleapis.com/maps/api/streetview?location=${this.lat},${this.lng}&size=300x200&key=AIzaSyBuqGWfwnf0jqwfu8WJprNaJoLcD00sol4`;
 		$('.streetView').attr('src', image);
 		return;
 	}
