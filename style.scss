@@ -60,23 +60,10 @@ body {
 		font-weight: 900;
 		color: #f8ce0b;
 	}
-	// .stars-outer::before {
-	// 	content: '\f005 \f005 \f005 \f005 \f005';
-	// 	font-family: 'Font Awesome 5 Free';
-	// 	font-weight: 900;
-	// 	color: #ccc;
-	// }
-
-	// .stars-inner::before {
-	// 	content: '\f005 \f005 \f005 \f005 \f005';
-	// 	font-family: 'Font Awesome 5 Free';
-	// 	font-weight: 900;
-	// 	color: #f8ce0b;
-	// }
 }
 
 .restaurants {
-	padding: 60px 25px;
+	padding: 30px 25px;
 
 	.restaurant {
 		display: block;
@@ -157,8 +144,10 @@ body {
 				border-radius: 8px;
 				box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 				opacity: 1;
-				max-height: 1000px;
+				max-height: 200px;
 				margin-top: 10px;
+				overflow: scroll;
+				padding: 10px;
 			}
 		}
 	}

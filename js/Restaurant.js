@@ -5,11 +5,19 @@ class Restaurant {
 		this.lat = lat;
 		this.lng = long;
 		this.ratings = ratings;
-		this.averageRating = 0;
+		this.averageRating = this.calculateAverageRating();
 		this.totalRatings = 0;
 		this.totalComments = 0;
 		this.carte = carte;
 		this.id = String(lat) + String(long);
+		// this.elementParent = $('.restaurants');
+		// this.html = `
+		// 	<div class="restaurant">
+		// 			<div class="name" id="${this.id}-name">
+		// 			<div class="address" id="${this.id}-address">
+		// 			<div class="streetView" id="${this.id}-streetView">
+		// 			<div class="comment" id="${this.id}-comment">
+		// 	</div>`;
 	}
 
 	showOnMap() {
@@ -23,7 +31,7 @@ class Restaurant {
 		});
 	}
 
-	calculateAverageRating(container) {
+	calculateAverageRating() {
 		let totalRatings = 0;
 		let averageRating = 0;
 
@@ -38,17 +46,20 @@ class Restaurant {
 		}
 
 		let roundedAverageRating = Math.round(averageRating * 10) / 10; // pour avoir 1 decimale
-		// return roundedAverageRating;
-		let starPercentage = (roundedAverageRating / 5) * 100;
-		let starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
-		container.innerHTML = `<div class="stars-outer">
+		return roundedAverageRating;
+	}
+
+	displayStars() {
+		let rate = this.averageRating;
+		let starPercentage = (rate / 5) * 100;
+		return `<div class="stars-outer">
 				<i class="fa fa-star-o"></i>
 				<i class="fa fa-star-o"></i>
 				<i class="fa fa-star-o"></i>
 				<i class="fa fa-star-o"></i>
 				<i class="fa fa-star-o"></i>
 
-				<div class="stars-inner" style="width: ${starPercentageRounded}">
+				<div class="stars-inner" style="width: ${starPercentage}%">
 					<i class="fa fa-star"></i>
 					<i class="fa fa-star"></i>
 					<i class="fa fa-star"></i>
@@ -58,30 +69,10 @@ class Restaurant {
 			</div> &nbsp ${this.ratings.length} avis`;
 	}
 
-	// convertRatingToStars(rate, container) {
-	// 	let starPercentage = (rate / 5) * 100;
-	// 	let starPercentageRounded = `${Math.round(starPercentage / 10) * 10}%`;
-	// 	container.innerHTML = `<div class="stars-outer">
-	// 			<i class="fa fa-star-o"></i>
-	// 			<i class="fa fa-star-o"></i>
-	// 			<i class="fa fa-star-o"></i>
-	// 			<i class="fa fa-star-o"></i>
-	// 			<i class="fa fa-star-o"></i>
-
-	// 			<div class="stars-inner" style="width: ${starPercentageRounded}">
-	// 				<i class="fa fa-star"></i>
-	// 				<i class="fa fa-star"></i>
-	// 				<i class="fa fa-star"></i>
-	// 				<i class="fa fa-star"></i>
-	// 				<i class="fa fa-star"></i>
-	// 			</div>
-	// 		</div> &nbsp ${this.ratings.length} avis`;
-	// }
-
 	showList() {
-		const restaurants_element = document.querySelector('.restaurants');
+		let restaurants_element = document.querySelector('.restaurants');
 
-		const restaurant_element = document.createElement('div');
+		let restaurant_element = document.createElement('div');
 		restaurant_element.classList.add('restaurant');
 		if (this.open) {
 			restaurant_element.classList.add('open');
@@ -91,52 +82,37 @@ class Restaurant {
 			this.open = true;
 			this.classList.toggle('open');
 		});
-		// Pour afficher le nom du restaurant //
-		const restaurant_name_element = document.createElement('div');
-		restaurant_name_element.classList.add('name');
-		restaurant_name_element.innerText = this.name;
-		restaurant_element.appendChild(restaurant_name_element);
-
-		// pour afficher la moyenne des avis en étoiles //
-		const avgRatingContainer = document.createElement('div');
-		avgRatingContainer.classList.add('ratings');
-		if (this.ratings.length === 0 && !this.roundedAverageRating) {
-			avgRatingContainer.innerHTML = '<div class="stars-outer">0 avis</div>';
-		} else {
-			this.calculateAverageRating(avgRatingContainer);
-		}
-		restaurant_name_element.appendChild(avgRatingContainer);
-
-		// Pour afficher l'adresse //
-		const restaurant_address_element = document.createElement('div');
-		restaurant_address_element.classList.add('address');
-		restaurant_address_element.innerText = this.address;
-		restaurant_element.appendChild(restaurant_address_element);
-
-		// Pour afficher l'image google streetView //
-		const restaurant_streetView_element = document.createElement('img');
-		restaurant_streetView_element.classList.add('streetView');
-		restaurant_element.appendChild(restaurant_streetView_element);
-
-		// Pour afficher les commentaires //
-		this.ratings.forEach((comment) => {
-			const containerComment = document.createElement('div');
-			containerComment.classList.add('comment');
-			const restaurantComment = document.createElement('div');
-			restaurantComment.classList.add('comment');
-			restaurantComment.textContent = comment.comment;
-			containerComment.appendChild(restaurantComment);
-			restaurant_element.appendChild(containerComment);
-		});
-
-		//Pour tout afficher dans la div restaurants //
+		restaurant_element.innerHTML = `
+				<div class="name" id="${this.id}-name">${this.name}</div>
+				<div class="address" id="${this.id}-address">${this.address}</div>
+				<img class="streetView" id="${this.id}-streetView">
+				<div class="ratings" id="${this.id}-ratings">${this.displayStars()}</div>
+				<div class="comment" id="${this.id}-comment">${this.showComments()}</div>
+		`;
 		restaurants_element.appendChild(restaurant_element);
+	}
+
+	showComments() {
+		let commentToShow = '';
+		this.ratings.forEach((ratings) => {
+			commentToShow += `<div class="comment">${ratings.comment}</div>`;
+		});
+		return commentToShow;
 	}
 
 	getStreetViewImage() {
 		let image = `https://maps.googleapis.com/maps/api/streetview?location=${this.lat},${this.lng}&size=300x200&key=AIzaSyBuqGWfwnf0jqwfu8WJprNaJoLcD00sol4`;
 		$('.streetView').attr('src', image);
 		return;
+	}
+
+	filter(ratingMin, ratingMax) {
+		let filteredList = restaurants.filter((restaurant) => {
+			if (restaurant.averagerating >= ratingMin && restaurant.averageRating <= ratingMax) {
+				return true;
+			}
+		});
+		return filteredList;
 	}
 }
 

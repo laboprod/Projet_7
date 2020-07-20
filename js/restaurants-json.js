@@ -33,6 +33,18 @@ let restaurants = [
 				stars: 3,
 				comment: "J'ai trouvé ça correct, sans plus",
 			},
+			{
+				stars: 4,
+				comment: "Un excellent restaurant, j'y reviendrai ! Par contre il vaut mieux aimer la viande.",
+			},
+			{
+				stars: 1,
+				comment: 'A éviter, service très long, légumes surgelés...',
+			},
+			{
+				stars: 5,
+				comment: 'Tout simplement mon restaurant préféré !',
+			},
 		],
 	},
 ];

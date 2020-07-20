@@ -19,5 +19,9 @@ function start() {
 		restaurant.showOnMap();
 		restaurant.showList();
 		restaurant.getStreetViewImage();
+
+		$('#filter').click(function () {
+			restaurant.filter($('#rating_min').val(), $('#rating_max').val());
+		});
 	}
 }
