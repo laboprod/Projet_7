@@ -88,7 +88,8 @@ class Restaurant {
 				<img class="streetView" id="${this.id}-streetView">
 				<div class="ratings" id="${this.id}-ratings">${this.displayStars()}</div>
 				<div class="comment" id="${this.id}-comment">${this.showComments()}</div>
-		`;
+				<button class="button" id="modal-btn">Ajouter un commentaire</button>
+				`;
 		restaurants_element.appendChild(restaurant_element);
 	}
 

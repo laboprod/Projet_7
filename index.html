@@ -22,7 +22,6 @@
 				</div>
 			</div>
 		</section>
-		<section></section>
 
 		<section class="container" id="body-section">
 			<div id="map"></div>
@@ -38,6 +37,31 @@
 				<div class="restaurants"></div>
 			</div>
 		</section>
+
+		<div id="my-modal" class="modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<span class="close">&times;</span>
+					<h2>Votre avis est important</h2>
+				</div>
+				<div class="modal-body">
+					<label for="my-rating">Notez le restaurant de 1 à 5 étoiles</label></br>
+					<select name="my-rating" id="my-rating" required>
+						<option disabled selected value>Note</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select></br>
+					Laissez votre commentaire
+					<textarea name="my-comment" id="my-comment" placeholder="Laissez votre commentaire" required></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="submit">Envoyer</button>
+				</div>
+			</div>
+		</div>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script src="jqueryui/jquery-ui.js"></script>
