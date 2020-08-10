@@ -106,7 +106,7 @@ class Restaurant {
 		return;
 	}
 
-	filter(ratingMin, ratingMax) {
+	filterResto(ratingMin, ratingMax) {
 		let filteredList = restaurants.filter((restaurant) => {
 			if (restaurant.averagerating >= ratingMin && restaurant.averageRating <= ratingMax) {
 				return true;
