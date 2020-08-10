@@ -21,7 +21,7 @@ function start() {
 		restaurant.getStreetViewImage();
 
 		$('#filter').click(function () {
-			restaurant.filter($('#rating_min').val(), $('#rating_max').val());
+			restaurant.filterResto($('#rating_min').val(), $('#rating_max').val());
 		});
 	}
 }
