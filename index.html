@@ -26,16 +26,45 @@
 		<section class="container" id="body-section">
 			<div id="map"></div>
 			<div id="list">
-				<div id="filter_option">
+
+				<div id="filter-option" class="sort" style="display: block;">
+					Filtrer les restaurants :
+					<label for = "sort">Min</label>
+					<select name="sort" id="rating_min">
+						<option value="0">0 étoile</option>
+						<option value="1">1 étoile</option>
+						<option value="2">2 étoiles</option>
+						<option value="3">3 étoiles</option>
+						<option value="4">4 étoiles</option>
+						<option value="5">5 étoiles</option>
+					</select>
+	
+					<label for = "sort">Max</label>
+					<select name="sort" id="rating_max">
+						<!-- <option value="maxAllStars" disabled="disabled">Tout</option> -->
+						<option value="1">1 étoile</option>
+						<option value="2">2 étoiles</option>
+						<option value="3">3 étoiles</option>
+						<option value="4">4 étoiles</option>
+						<option value="5" selected>5 étoiles</option>
+					</select>
+
+					<button class="btn btn-large btn-primary" id="filter">Filtrer</button>
+
+				</div>
+
+				<!-- <div id="filter_option">
 					filtrer les restaurants de
 					<input type="number" id="rating_min" min="0" max="5" value="0" />à
 					<input type="number" id="rating_max" min="0" max="5" value="5" />
 
 					<button class="btn btn-large btn-primary" id="filter">Filtrer</button>
-				</div>
+				</div> -->
 
 				<div class="restaurants"></div>
 			</div>
+
+
 		</section>
 
 		<div id="my-modal" class="modal">
