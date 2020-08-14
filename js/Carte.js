@@ -1,6 +1,7 @@
 class Carte {
 	constructor(map) {
 		this.map = map;
+		this.markers = [];
 	}
 	// constructor(element, options) {
 	// 	this.map = new google.maps.Map(element, options);
@@ -21,7 +22,15 @@ class Carte {
 			marker.addListener('click', () => {
 				infoWindow.open(this.map, marker);
 			});
+			this.markers.push(marker);
 		}
+	}
+
+	clearMarkers() {
+		this.markers.forEach((marker) => {
+			marker.setMap(null);
+			this.markers = [];
+		});
 	}
 
 	getUserPosition() {

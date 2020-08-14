@@ -32,6 +32,7 @@ function start() {
 
 	function emptyRestaurantsList() {
 		document.getElementById('restaurants').innerHTML = '';
+		this.carte.clearMarkers();
 	}
 
 	function showAllRestaurants(restaurants) {
