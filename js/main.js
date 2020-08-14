@@ -2,6 +2,8 @@
 // import { Restaurant } from './Restaurant.js';
 // import { restaurants } from './restaurants-json.js';
 
+let restaurantsList = [];
+
 function start() {
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: { lat: 48.8566969, lng: 2.3514616 },
@@ -12,16 +14,38 @@ function start() {
 
 	carte.getUserPosition();
 
-	for (let i = 0; i < restaurants.length; i++) {
-		let restauJson = restaurants[i];
-		let restaurant = new Restaurant(restauJson, carte);
+	restaurants.forEach((item) => {
+		let restaurant = new Restaurant(item, carte);
+		restaurantsList.push(restaurant);
+	});
 
-		restaurant.showOnMap();
-		restaurant.showList();
-		restaurant.getStreetViewImage();
+	showAllRestaurants(restaurantsList);
 
-		$('#filter').click(function () {
-			restaurant.filterResto($('#rating_min').val(), $('#rating_max').val());
+	$('#filter').click(function () {
+		let min = $('#rating_min').val();
+		let max = $('#rating_max').val();
+		filteredRestaurants = filterRestaurant(min, max);
+
+		emptyRestaurantsList();
+		showAllRestaurants(filteredRestaurants);
+	});
+
+	function emptyRestaurantsList() {
+		document.getElementById('restaurants').innerHTML = '';
+	}
+
+	function showAllRestaurants(restaurants) {
+		restaurants.forEach((restaurant) => {
+			restaurant.show();
+		});
+	}
+
+	function filterRestaurant(min, max) {
+		return restaurantsList.filter((restaurant) => {
+			if (restaurant.averageRating >= min && restaurant.averageRating <= max) {
+				return true;
+			}
+			return false;
 		});
 	}
 
