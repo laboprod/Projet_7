@@ -16,6 +16,7 @@ class Restaurant {
 		this.showOnMap();
 		this.showOnList();
 		this.showStreetViewImage();
+		carte.showNearbyRestaurants();
 	}
 
 	showOnMap() {
@@ -24,7 +25,9 @@ class Restaurant {
 				lat: this.lat,
 				lng: this.lng,
 			},
-			iconImage: 'http://maps.google.com/mapfiles/kml/shapes/dining.png',
+			iconImage: 'img/restaurant-icon.png',
+
+			// iconImage: 'http://maps.google.com/mapfiles/kml/shapes/dining.png',
 			content: `<h1>${this.name}</h1>`,
 		});
 	}
