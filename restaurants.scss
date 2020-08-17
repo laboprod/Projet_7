@@ -1,0 +1,90 @@
+#restaurants {
+	padding: 30px 25px;
+
+	.restaurant {
+		display: block;
+		width: 100%;
+		max-width: 768px;
+		margin: 15px auto;
+		padding: 15px;
+
+		background-color: #fff;
+		border-radius: 8px;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+
+		.name {
+			position: relative;
+			color: #3c3c3c;
+			font-size: 20px;
+			transition: all 0.4s linear;
+
+			&:after {
+				content: '';
+				position: absolute;
+				top: 50%;
+				right: 0px;
+				transform: translateY(-50%) rotate(0deg);
+
+				width: 30px;
+				height: 30px;
+
+				background-image: url('./arrow-down-mint.svg');
+				background-position: center;
+				background-size: contain;
+				background-repeat: no-repeat;
+
+				transition: all 0.4s linear;
+			}
+		}
+
+		.address {
+			opacity: 0;
+			max-height: 0px;
+			transition: all 0.4s ease-out;
+
+			color: #3c3c3c;
+			font-size: 18px;
+		}
+
+		.streetView {
+			opacity: 0;
+			max-height: 0px;
+		}
+
+		.comment {
+			opacity: 0;
+			max-height: 0px;
+		}
+
+		&.open {
+			.name {
+				margin-bottom: 15px;
+
+				&:after {
+					transform: translateY(-50%) rotate(180deg);
+				}
+			}
+
+			.address {
+				opacity: 1;
+				max-height: 1000px;
+			}
+
+			.streetView {
+				opacity: 1;
+				max-height: 300px;
+			}
+
+			.comment {
+				background-color: #fff;
+				border-radius: 8px;
+				box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+				opacity: 1;
+				max-height: 200px;
+				margin-top: 10px;
+				overflow: scroll;
+				padding: 10px;
+			}
+		}
+	}
+}
