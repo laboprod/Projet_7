@@ -5,10 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/js/all.min.js" />
-		<link href="style.css" rel="stylesheet" />
-		<link href="jqueryui/jquery-ui.css" rel="stylesheet" />
-		<link href="jqueryui/jquery-ui.structure.css" rel="stylesheet" />
-		<link href="jqueryui/jquery-ui.theme.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/main.css"  />
 		<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" />
 
@@ -18,7 +15,7 @@
 		<section id="header" class="container-fluid">
 			<div class="row text-center">
 				<div id="logo" class="col mt-2">
-					<img id="logo-img" alt="Logo" src="img/logo3.png" />
+					<img id="logo-img" alt="Logo" src="./img/logo3.png" />
 				</div>
 			</div>
 		</section>
@@ -62,9 +59,10 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<span class="close">&times;</span>
-					<h2>Votre avis est important</h2>
+					<h2>Votre avis sur le restaurant <span id="modal-restaurant-name"></span></h2>
 				</div>
 				<div class="modal-body">
+					<form id="form-comment">
 					<label for="my-rating">Notez le restaurant de 1 à 5 étoiles</label></br>
 					<select name="my-rating" id="my-rating" required>
 						<option disabled selected value>Note</option>
@@ -78,13 +76,13 @@
 					<textarea name="my-comment" id="my-comment" placeholder="Laissez votre commentaire" required></textarea>
 				</div>
 				<div class="modal-footer">
-					<button type="submit">Envoyer</button>
+					<button type="submit" id="submit-comment">Envoyer</button>
 				</div>
+			</form>
 			</div>
 		</div>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script src="jqueryui/jquery-ui.js"></script>
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 			integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"

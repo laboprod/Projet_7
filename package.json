@@ -1,0 +1,22 @@
+{
+	"name": "projet_7",
+	"version": "1.0.0",
+	"description": "Projet 7 OpenClassrooms",
+	"main": "index.js",
+	"scripts": {
+		"sass": "node-sass -w scss/ -o dist/css/ --recursive"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/laboprod/Projet_7.git"
+	},
+	"author": "François Labeau",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/laboprod/Projet_7/issues"
+	},
+	"homepage": "https://github.com/laboprod/Projet_7#readme",
+	"dependencies": {
+		"node-sass": "^4.14.1"
+	}
+}

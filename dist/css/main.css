@@ -1,0 +1,189 @@
+#restaurants {
+  padding: 30px 25px; }
+  #restaurants .restaurant {
+    display: block;
+    width: 100%;
+    max-width: 768px;
+    margin: 15px auto;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); }
+    #restaurants .restaurant .name {
+      position: relative;
+      color: #3c3c3c;
+      font-size: 20px;
+      transition: all 0.4s linear; }
+      #restaurants .restaurant .name:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 0px;
+        transform: translateY(-50%) rotate(0deg);
+        width: 30px;
+        height: 30px;
+        background-image: url("../img/arrow-down-mint.svg");
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        transition: all 0.4s linear; }
+    #restaurants .restaurant .address {
+      opacity: 0;
+      max-height: 0px;
+      transition: all 0.4s ease-out;
+      color: #3c3c3c;
+      font-size: 18px; }
+    #restaurants .restaurant .streetView {
+      opacity: 0;
+      max-height: 0px; }
+    #restaurants .restaurant .comment {
+      opacity: 0;
+      max-height: 0px; }
+    #restaurants .restaurant.open .name {
+      margin-bottom: 15px; }
+      #restaurants .restaurant.open .name:after {
+        transform: translateY(-50%) rotate(180deg); }
+    #restaurants .restaurant.open .address {
+      opacity: 1;
+      max-height: 1000px; }
+    #restaurants .restaurant.open .streetView {
+      opacity: 1;
+      max-height: 300px; }
+    #restaurants .restaurant.open .comment {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+      opacity: 1;
+      max-height: 200px;
+      margin-top: 10px;
+      overflow: scroll;
+      padding: 10px; }
+
+:root {
+  --modal-duration: 1s;
+  --modal-color: #3c3c3c; }
+
+.button {
+  background: #428bca;
+  padding: 1em 2em;
+  color: #fff;
+  border: 0;
+  border-radius: 5px;
+  cursor: pointer; }
+
+.button:hover {
+  background: #3876ac; }
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); }
+
+.modal-content {
+  margin: 10% auto;
+  width: 60%;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+  animation-name: modalopen;
+  animation-duration: var(--modal-duration); }
+
+.modal-header h2,
+.modal-footer h3 {
+  margin: 0; }
+
+.modal-header {
+  background: var(--modal-color);
+  padding: 15px;
+  color: #fff;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px; }
+
+.modal-body {
+  padding: 10px 20px;
+  background: #fff; }
+
+.modal-footer {
+  background: var(--modal-color);
+  padding: 10px;
+  color: #fff;
+  text-align: center;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px; }
+
+.close {
+  color: #ccc;
+  float: right;
+  font-size: 30px;
+  color: #fff; }
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer; }
+
+@keyframes modalopen {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+
+textarea {
+  width: 100%; }
+
+body {
+  background: #fff;
+  color: #23272b; }
+
+#body-section {
+  height: calc(100vh - 310px); }
+
+#header {
+  height: 250px;
+  background-image: url(../img/header-bg.jpg);
+  background-color: #fff;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  text-align: center; }
+
+#header #logo-img {
+  width: 300px; }
+
+.container {
+  display: flex; }
+
+#map {
+  width: 60%;
+  height: 100vh; }
+
+#list {
+  width: 40%;
+  height: 100vh; }
+
+.ratings {
+  font-size: 0.8rem;
+  line-height: 1.5rem; }
+  .ratings .stars-outer {
+    display: inline-block;
+    position: relative;
+    content: '\f005 \f005 \f005 \f005 \f005';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #ccc; }
+  .ratings .stars-inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 0;
+    content: '\f005 \f005 \f005 \f005 \f005';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #f8ce0b; }

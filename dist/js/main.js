@@ -51,25 +51,41 @@ function start() {
 	}
 
 	// Modal add comment
-	const modal = document.querySelector('#my-modal');
-	const modalBtn = document.querySelector('#modal-btn');
-	const closeBtn = document.querySelector('.close');
+	// document.getElementById('my-modal').addEventListener('click', () => {
+	// 	show('my-modal');
+	// });
+	// document.getElementById('close-modal').addEventListener('click', () => {
+	// 	hide('my-modal');
+	// });
+	// window.addEventListener('click', outsideClick());
 
-	modalBtn.addEventListener('click', openModal);
-	closeBtn.addEventListener('click', closeModal);
-	window.addEventListener('click', outsideClick);
+	// const modal = document.querySelector('#my-modal');
+	// // const modalBtn = document.querySelector('#modal-btn');
+	// // const closeBtn = document.querySelector('.close');
 
-	function openModal() {
-		modal.style.display = 'block';
-	}
+	// // modalBtn.addEventListener('click', openModal);
+	// // closeBtn.addEventListener('click', closeModal);
+	// // window.addEventListener('click', outsideClick);
 
-	function closeModal() {
-		modal.style.display = 'none';
-	}
+	// // function openModal() {
+	// // 	modal.style.display = 'block';
+	// // }
 
-	function outsideClick(e) {
-		if (e.target == modal) {
-			modal.style.display = 'none';
-		}
-	}
+	// // function closeModal() {
+	// // 	modal.style.display = 'none';
+	// // }
+
+	// function outsideClick(e) {
+	// 	if (e.target == modal) {
+	// 		modal.style.display = 'none';
+	// 	}
+	// }
+}
+
+function show(id) {
+	document.getElementById(id).style.display = 'block';
+}
+
+function hide(id) {
+	document.getElementById(id).style.display = 'none';
 }

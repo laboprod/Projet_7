@@ -17,6 +17,26 @@ class Restaurant {
 		this.showOnList();
 		this.showStreetViewImage();
 		carte.showNearbyRestaurants();
+		document.getElementById('modal-button-' + this.id).addEventListener('click', () => {
+			document.getElementById('modal-restaurant-name').innerHTML = this.name;
+			show('my-modal');
+			document.getElementById('form-comment').addEventListener('submit', (e) => {
+				e.preventDefault();
+				let review = {
+					comment: document.getElementById('my-comment').value,
+					stars: document.getElementById('my-rating').value,
+				};
+				this.ratings.push(review);
+				this.calculateAverageRating();
+				this.displayStars();
+				this.showOnList();
+
+				hide('my-modal');
+			});
+		});
+		document.querySelector('.close').addEventListener('click', () => {
+			hide('my-modal');
+		});
 	}
 
 	showOnMap() {
@@ -95,7 +115,7 @@ class Restaurant {
 		<img class="streetView" id="${this.id}-streetView">
 		<div class="ratings" id="${this.id}-ratings">${this.displayStars()}</div>
 		<div class="comment" id="${this.id}-comment">${this.showComments()}</div>
-		<button class="button" id="modal-btn">Ajouter un commentaire</button>
+		<button class="button" data-id="${this.id}" id="modal-button-${this.id}">Ajouter un commentaire</button>
 		`;
 	}
 
