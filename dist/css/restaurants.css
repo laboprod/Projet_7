@@ -38,7 +38,8 @@
       max-height: 0px; }
     #restaurants .restaurant .comment {
       opacity: 0;
-      max-height: 0px; }
+      max-height: 0px;
+      overflow: scroll; }
     #restaurants .restaurant.open .name {
       margin-bottom: 15px; }
       #restaurants .restaurant.open .name:after {
@@ -56,5 +57,4 @@
       opacity: 1;
       max-height: 200px;
       margin-top: 10px;
-      overflow: scroll;
       padding: 10px; }

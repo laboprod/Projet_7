@@ -54,6 +54,7 @@
 		.comment {
 			opacity: 0;
 			max-height: 0px;
+			overflow: scroll;
 		}
 
 		&.open {
@@ -82,7 +83,6 @@
 				opacity: 1;
 				max-height: 200px;
 				margin-top: 10px;
-				overflow: scroll;
 				padding: 10px;
 			}
 		}

@@ -12,24 +12,24 @@ class Restaurant {
 		this.id = String(lat) + String(long);
 	}
 
-	show() {
-		this.showOnMap();
-		this.showOnList();
-		this.showStreetViewImage();
-		carte.showNearbyRestaurants();
+	addComment() {
 		document.getElementById('modal-button-' + this.id).addEventListener('click', () => {
 			document.getElementById('modal-restaurant-name').innerHTML = this.name;
 			show('my-modal');
 			document.getElementById('form-comment').addEventListener('submit', (e) => {
 				e.preventDefault();
 				let review = {
+					stars: parseInt(document.getElementById('my-rating').value),
 					comment: document.getElementById('my-comment').value,
-					stars: document.getElementById('my-rating').value,
 				};
 				this.ratings.push(review);
 				this.calculateAverageRating();
-				this.displayStars();
-				this.showOnList();
+				console.log(this.calculateAverageRating());
+				console.log(this.averageRating);
+				console.log(this.ratings.length);
+
+				document.getElementById(this.id + '-comment').innerHTML = this.showComments();
+				document.getElementById(this.id + '-ratings').innerHTML = this.displayStars();
 
 				hide('my-modal');
 			});
@@ -37,6 +37,14 @@ class Restaurant {
 		document.querySelector('.close').addEventListener('click', () => {
 			hide('my-modal');
 		});
+	}
+
+	show() {
+		this.showOnMap();
+		this.showOnList();
+		this.showStreetViewImage();
+		this.addComment();
+		// carte.showNearbyRestaurants();
 	}
 
 	showOnMap() {
@@ -71,7 +79,8 @@ class Restaurant {
 	}
 
 	displayStars() {
-		let rate = this.averageRating;
+		let rate = this.calculateAverageRating();
+		// let rate = this.averageRating;
 		let starPercentage = (rate / 5) * 100;
 		return `<div class="stars-outer">
 				<i class="fa fa-star-o"></i>

@@ -7,7 +7,7 @@ body {
 }
 
 #body-section {
-	height: calc(100vh - 310px);
+	height: calc(100vh - 250px);
 }
 
 #header {
@@ -18,10 +18,10 @@ body {
 	background-position: center center;
 	background-repeat: no-repeat;
 	text-align: center;
-}
 
-#header #logo-img {
-	width: 300px;
+	#logo-img {
+		width: 300px;
+	}
 }
 
 .container {
@@ -30,12 +30,12 @@ body {
 
 #map {
 	width: 60%;
-	height: 100vh;
+	height: 100%;
 }
 
 #list {
 	width: 40%;
-	height: 100vh;
+	height: 100%;
 }
 
 .ratings {

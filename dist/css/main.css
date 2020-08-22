@@ -38,7 +38,8 @@
       max-height: 0px; }
     #restaurants .restaurant .comment {
       opacity: 0;
-      max-height: 0px; }
+      max-height: 0px;
+      overflow: scroll; }
     #restaurants .restaurant.open .name {
       margin-bottom: 15px; }
       #restaurants .restaurant.open .name:after {
@@ -56,7 +57,6 @@
       opacity: 1;
       max-height: 200px;
       margin-top: 10px;
-      overflow: scroll;
       padding: 10px; }
 
 :root {
@@ -66,13 +66,13 @@
 .button {
   background: #428bca;
   padding: 1em 2em;
+  margin-top: 20px;
   color: #fff;
   border: 0;
   border-radius: 5px;
   cursor: pointer; }
-
-.button:hover {
-  background: #3876ac; }
+  .button:hover {
+    background: #3876ac; }
 
 .modal {
   display: none;
@@ -84,48 +84,42 @@
   width: 100%;
   overflow: auto;
   background-color: rgba(0, 0, 0, 0.5); }
-
-.modal-content {
-  margin: 10% auto;
-  width: 60%;
-  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
-  animation-name: modalopen;
-  animation-duration: var(--modal-duration); }
-
-.modal-header h2,
-.modal-footer h3 {
-  margin: 0; }
-
-.modal-header {
-  background: var(--modal-color);
-  padding: 15px;
-  color: #fff;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px; }
-
-.modal-body {
-  padding: 10px 20px;
-  background: #fff; }
-
-.modal-footer {
-  background: var(--modal-color);
-  padding: 10px;
-  color: #fff;
-  text-align: center;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px; }
+  .modal-content {
+    margin: 10% auto;
+    width: 60%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.17);
+    animation-name: modalopen;
+    animation-duration: var(--modal-duration); }
+  .modal-header h2,
+  .modal footer h3 {
+    margin: 0; }
+  .modal-header {
+    background: var(--modal-color);
+    padding: 15px;
+    color: #fff;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px; }
+  .modal-body {
+    padding: 10px 20px;
+    background: #fff; }
+  .modal-footer {
+    background: var(--modal-color);
+    padding: 10px;
+    color: #fff;
+    text-align: center;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px; }
 
 .close {
   color: #ccc;
   float: right;
   font-size: 30px;
   color: #fff; }
-
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer; }
+  .close:hover,
+  .close :focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer; }
 
 @keyframes modalopen {
   from {
@@ -141,7 +135,7 @@ body {
   color: #23272b; }
 
 #body-section {
-  height: calc(100vh - 310px); }
+  height: calc(100vh - 250px); }
 
 #header {
   height: 250px;
@@ -151,20 +145,19 @@ body {
   background-position: center center;
   background-repeat: no-repeat;
   text-align: center; }
-
-#header #logo-img {
-  width: 300px; }
+  #header #logo-img {
+    width: 300px; }
 
 .container {
   display: flex; }
 
 #map {
   width: 60%;
-  height: 100vh; }
+  height: 100%; }
 
 #list {
   width: 40%;
-  height: 100vh; }
+  height: 100%; }
 
 .ratings {
   font-size: 0.8rem;
