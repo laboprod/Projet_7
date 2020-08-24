@@ -14,6 +14,10 @@ function start() {
 
 	carte.getUserPosition();
 
+	google.maps.event.addListener(map, 'rightclick', function (event) {
+		carte.addMarker({ coords: event.latLng });
+	});
+
 	restaurants.forEach((item) => {
 		let restaurant = new Restaurant(item, carte);
 		restaurantsList.push(restaurant);
@@ -51,15 +55,15 @@ function start() {
 	}
 
 	// Modal add comment
-	// document.getElementById('my-modal').addEventListener('click', () => {
-	// 	show('my-modal');
+	// document.getElementById('add-comment-modal').addEventListener('click', () => {
+	// 	show('add-comment-modal');
 	// });
 	// document.getElementById('close-modal').addEventListener('click', () => {
-	// 	hide('my-modal');
+	// 	hide('add-comment-modal');
 	// });
 	// window.addEventListener('click', outsideClick());
 
-	// const modal = document.querySelector('#my-modal');
+	// const modal = document.querySelector('#add-comment-modal');
 	// // const modalBtn = document.querySelector('#modal-btn');
 	// // const closeBtn = document.querySelector('.close');
 
