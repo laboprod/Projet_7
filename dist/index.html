@@ -55,7 +55,8 @@
 
 		</section>
 
-		<div id="my-modal" class="modal">
+<!-- Add new comment modal -->
+		<div id="add-comment-modal" class="modal">
 			<div class="modal-content">
 				<div class="modal-header">
 					<span class="close">&times;</span>
@@ -77,6 +78,41 @@
 				</div>
 				<div class="modal-footer">
 					<button type="submit" id="submit-comment">Envoyer</button>
+				</div>
+			</form>
+			</div>
+		</div>
+
+<!-- Add new restaurant modal -->
+		<div id="add-restaurant-modal" class="modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<span class="close">&times;</span>
+					<h2>Ajoutez un restaurant ici</h2>
+				</div>
+				<div class="modal-body">
+					<form id="form-add-restaurant">
+
+						<label for="input-name">Nom :</label>
+							<input id="input-name" type="text" required></br>
+
+						<label for="input-address">Adresse :</label>
+							<input id="input-address" type="text"required></br>
+
+					<label for="add-restaurant-rating">Notez le restaurant de 1 à 5 étoiles</label></br>
+					<select name="add-restaurant-rating" id="add-restaurant-rating" required>
+						<option disabled selected value>Note</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select></br>
+					Laissez votre commentaire
+					<textarea name="add-restaurant-comment" id="add-restaurant-comment" placeholder="Laissez votre commentaire" required></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" id="submit-new-restaurant">Envoyer</button>
 				</div>
 			</form>
 			</div>
