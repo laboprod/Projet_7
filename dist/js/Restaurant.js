@@ -12,30 +12,41 @@ class Restaurant {
 		this.id = String(lat) + String(long);
 	}
 
-	addComment() {
+	openCommentModal() {
 		document.getElementById('modal-button-' + this.id).addEventListener('click', () => {
 			document.getElementById('modal-restaurant-name').innerHTML = this.name;
-			show('my-modal');
-			document.getElementById('form-comment').addEventListener('submit', (e) => {
-				e.preventDefault();
-				let review = {
-					stars: parseInt(document.getElementById('my-rating').value),
-					comment: document.getElementById('my-comment').value,
-				};
-				this.ratings.push(review);
-				this.calculateAverageRating();
-				console.log(this.calculateAverageRating());
-				console.log(this.averageRating);
-				console.log(this.ratings.length);
-
-				document.getElementById(this.id + '-comment').innerHTML = this.showComments();
-				document.getElementById(this.id + '-ratings').innerHTML = this.displayStars();
-
-				hide('my-modal');
-			});
+			show('add-comment-modal');
+			document.getElementById('my-rating').value = '';
+			document.getElementById('my-comment').value = '';
 		});
+	}
+
+	submitComment() {
+		document.getElementById('form-comment').addEventListener('submit', (e) => {
+			e.preventDefault();
+			let review = {
+				stars: parseInt(document.getElementById('my-rating').value),
+				comment: document.getElementById('my-comment').value,
+			};
+			this.ratings.push(review);
+			this.calculateAverageRating();
+			console.log(this.calculateAverageRating());
+			console.log(this.averageRating);
+			console.log(this.ratings);
+			console.log(this.ratings.length);
+
+			document.getElementById(this.id + '-comment').innerHTML = this.showComments();
+			document.getElementById(this.id + '-ratings').innerHTML = this.displayStars();
+
+			hide('add-comment-modal');
+		});
+	}
+
+	addComment() {
+		this.openCommentModal();
+		this.submitComment();
 		document.querySelector('.close').addEventListener('click', () => {
-			hide('my-modal');
+			hide('add-comment-modal');
 		});
 	}
 
