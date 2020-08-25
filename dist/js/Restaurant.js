@@ -12,62 +12,11 @@ class Restaurant {
 		this.id = String(lat) + String(long);
 	}
 
-	openCommentModal() {
-		document.getElementById('modal-button-' + this.id).addEventListener('click', () => {
-			document.getElementById('modal-restaurant-name').innerHTML = this.name;
-			show('add-comment-modal');
-			document.getElementById('my-rating').value = '';
-			document.getElementById('my-comment').value = '';
-		});
-	}
-
-	submitComment() {
-		document.getElementById('form-comment').addEventListener('submit', (e) => {
-			e.preventDefault();
-			let review = {
-				stars: parseInt(document.getElementById('my-rating').value),
-				comment: document.getElementById('my-comment').value,
-			};
-			this.ratings.push(review);
-			this.calculateAverageRating();
-			console.log(this.calculateAverageRating());
-			console.log(this.averageRating);
-			console.log(this.ratings);
-			console.log(this.ratings.length);
-
-			document.getElementById(this.id + '-comment').innerHTML = this.showComments();
-			document.getElementById(this.id + '-ratings').innerHTML = this.displayStars();
-
-			hide('add-comment-modal');
-		});
-	}
-
 	addComment() {
 		this.openCommentModal();
 		this.submitComment();
 		document.querySelector('.close').addEventListener('click', () => {
 			hide('add-comment-modal');
-		});
-	}
-
-	show() {
-		this.showOnMap();
-		this.showOnList();
-		this.showStreetViewImage();
-		this.addComment();
-		// carte.showNearbyRestaurants();
-	}
-
-	showOnMap() {
-		this.carte.addMarker({
-			coords: {
-				lat: this.lat,
-				lng: this.lng,
-			},
-			iconImage: 'img/restaurant-icon.png',
-
-			// iconImage: 'http://maps.google.com/mapfiles/kml/shapes/dining.png',
-			content: `<h1>${this.name}</h1>`,
 		});
 	}
 
@@ -110,6 +59,68 @@ class Restaurant {
 			</div> &nbsp ${this.ratings.length} avis`;
 	}
 
+	openCommentModal() {
+		document.getElementById('modal-button-' + this.id).addEventListener('click', () => {
+			document.getElementById('modal-restaurant-name').innerHTML = this.name;
+			show('add-comment-modal');
+			document.getElementById('my-rating').value = '';
+			document.getElementById('my-comment').value = '';
+		});
+	}
+
+	renderHTML() {
+		return `
+		<div class="name" id="${this.id}-name">${this.name}</div>
+		<div class="address" id="${this.id}-address">${this.address}</div>
+		<img class="streetView" id="${this.id}-streetView">
+		<div class="ratings" id="${this.id}-ratings">${this.displayStars()}</div>
+		<div class="comment" id="${this.id}-comment">${this.showComments()}</div>
+		<button class="button" data-id="${this.id}" id="modal-button-${this.id}">Ajouter un commentaire</button>
+		`;
+	}
+
+	submitComment() {
+		document.getElementById('form-comment').addEventListener('submit', (e) => {
+			e.preventDefault();
+			let review = {
+				stars: parseInt(document.getElementById('my-rating').value),
+				comment: document.getElementById('my-comment').value,
+			};
+			this.ratings.push(review);
+			this.calculateAverageRating();
+			console.log(this.calculateAverageRating());
+			console.log(this.averageRating);
+			console.log(this.ratings);
+			console.log(this.ratings.length);
+
+			document.getElementById(this.id + '-comment').innerHTML = this.showComments();
+			document.getElementById(this.id + '-ratings').innerHTML = this.displayStars();
+
+			hide('add-comment-modal');
+		});
+	}
+
+	show() {
+		this.showOnMap();
+		this.showOnList();
+		this.showStreetViewImage();
+		this.addComment();
+		// carte.showNearbyRestaurants();
+	}
+
+	showOnMap() {
+		this.carte.addMarker({
+			coords: {
+				lat: this.lat,
+				lng: this.lng,
+			},
+			iconImage: 'img/restaurant-icon.png',
+
+			// iconImage: 'http://maps.google.com/mapfiles/kml/shapes/dining.png',
+			content: `<h1>${this.name}</h1>`,
+		});
+	}
+
 	showOnList() {
 		let restaurants_element = document.getElementById('restaurants');
 
@@ -126,17 +137,6 @@ class Restaurant {
 		restaurant_element.innerHTML = this.renderHTML();
 
 		restaurants_element.appendChild(restaurant_element);
-	}
-
-	renderHTML() {
-		return `
-		<div class="name" id="${this.id}-name">${this.name}</div>
-		<div class="address" id="${this.id}-address">${this.address}</div>
-		<img class="streetView" id="${this.id}-streetView">
-		<div class="ratings" id="${this.id}-ratings">${this.displayStars()}</div>
-		<div class="comment" id="${this.id}-comment">${this.showComments()}</div>
-		<button class="button" data-id="${this.id}" id="modal-button-${this.id}">Ajouter un commentaire</button>
-		`;
 	}
 
 	showComments() {
