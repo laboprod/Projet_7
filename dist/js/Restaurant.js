@@ -12,14 +12,6 @@ class Restaurant {
 		this.id = String(lat) + String(long);
 	}
 
-	addComment() {
-		this.openCommentModal();
-		this.submitComment();
-		document.querySelector('.close').addEventListener('click', () => {
-			hide('add-comment-modal');
-		});
-	}
-
 	calculateAverageRating() {
 		let totalRatings = 0;
 		let averageRating = 0;
@@ -59,12 +51,18 @@ class Restaurant {
 			</div> &nbsp ${this.ratings.length} avis`;
 	}
 
-	openCommentModal() {
+	listenForCommentForm() {
 		document.getElementById('modal-button-' + this.id).addEventListener('click', () => {
 			document.getElementById('modal-restaurant-name').innerHTML = this.name;
-			show('add-comment-modal');
-			document.getElementById('my-rating').value = '';
-			document.getElementById('my-comment').value = '';
+			showModal('add-comment-modal');
+			document.getElementById('form-comment').reset();
+			// document.getElementById('my-rating').value = '';
+			// document.getElementById('my-comment').value = '';
+
+			this.listenCommentSubmission();
+			document.querySelector('.close').addEventListener('click', () => {
+				hideModal('add-comment-modal');
+			});
 		});
 	}
 
@@ -79,32 +77,37 @@ class Restaurant {
 		`;
 	}
 
-	submitComment() {
-		document.getElementById('form-comment').addEventListener('submit', (e) => {
+	listenCommentSubmission() {
+		let self = this;
+		document.getElementById('form-comment').addEventListener('submit', submitComment);
+
+		function submitComment(e) {
 			e.preventDefault();
 			let review = {
 				stars: parseInt(document.getElementById('my-rating').value),
 				comment: document.getElementById('my-comment').value,
 			};
-			this.ratings.push(review);
-			this.calculateAverageRating();
-			console.log(this.calculateAverageRating());
-			console.log(this.averageRating);
-			console.log(this.ratings);
-			console.log(this.ratings.length);
+			self.ratings.push(review);
+			self.calculateAverageRating();
+			// console.log(self.calculateAverageRating());
+			// console.log(self.averageRating);
+			// console.log(self.ratings);
+			// console.log(self.ratings.length);
 
-			document.getElementById(this.id + '-comment').innerHTML = this.showComments();
-			document.getElementById(this.id + '-ratings').innerHTML = this.displayStars();
+			document.getElementById(self.id + '-comment').innerHTML = self.showComments();
+			document.getElementById(self.id + '-ratings').innerHTML = self.displayStars();
 
-			hide('add-comment-modal');
-		});
+			hideModal('add-comment-modal');
+
+			// document.getElementById('form-comment').removeEventListener('click', submitComment);
+		}
 	}
 
 	show() {
 		this.showOnMap();
 		this.showOnList();
 		this.showStreetViewImage();
-		this.addComment();
+		this.listenForCommentForm();
 		// carte.showNearbyRestaurants();
 	}
 

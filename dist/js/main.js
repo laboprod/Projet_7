@@ -86,10 +86,10 @@ function start() {
 	// }
 }
 
-function show(id) {
+function showModal(id) {
 	document.getElementById(id).style.display = 'block';
 }
 
-function hide(id) {
+function hideModal(id) {
 	document.getElementById(id).style.display = 'none';
 }
