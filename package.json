@@ -4,7 +4,7 @@
 	"description": "Projet 7 OpenClassrooms",
 	"main": "index.js",
 	"scripts": {
-		"sass": "node-sass -w scss/ -o dist/css/ --recursive"
+		"sass": "node-sass -w scss/ -o dist/css/"
 	},
 	"repository": {
 		"type": "git",
