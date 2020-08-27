@@ -99,7 +99,7 @@ class Restaurant {
 
 			hideModal('add-comment-modal');
 
-			// document.getElementById('form-comment').removeEventListener('click', submitComment);
+			document.getElementById('form-comment').removeEventListener('submit', submitComment);
 		}
 	}
 
