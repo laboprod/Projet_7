@@ -14,9 +14,10 @@ function start() {
 
 	carte.getUserPosition();
 
-	google.maps.event.addListener(map, 'rightclick', function (event) {
-		carte.addMarker({ coords: event.latLng });
-	});
+	// google.maps.event.addListener(map, 'rightclick', function (event) {
+	// 	carte.addMarker({ coords: event.latLng });
+	// 	showModal('add-restaurant-modal');
+	// });
 
 	restaurants.forEach((item) => {
 		let restaurant = new Restaurant(item, carte);

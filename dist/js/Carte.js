@@ -23,12 +23,6 @@ class Carte {
 		}
 	}
 
-	// addMarkerOnClick() {
-	// 	google.maps.event.addListener(map, 'rightclick', function (event) {
-	// 		carte.addMarker({ coords: event.latLng });
-	// 	});
-	// }
-
 	clearMarkers() {
 		this.markers.forEach((marker) => {
 			marker.setMap(null);
