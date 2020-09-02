@@ -5,43 +5,11 @@ class Restaurant {
 		this.lat = lat;
 		this.lng = long;
 		this.ratings = ratings;
-		this.averageRating = this.calculateAverageRating();
+		this.averageRating = 0;
 		this.totalRatings = 0;
 		this.totalComments = 0;
 		this.carte = carte;
 		this.id = String(lat) + String(long);
-	}
-
-	listenForAddRestaurantForm() {
-		google.maps.event.addListener(map, 'rightclick', function (event) {
-			carte.addMarker({ coords: event.latLng, iconImage: 'img/restaurant-icon.png' });
-			showModal('add-restaurant-modal');
-			document.getElementById('form-add-restaurant').reset();
-
-			this.listenAddRestaurantSubmission();
-
-			document.querySelector('.close').addEventListener('click', () => {
-				hideModal('add-restaurant-modal');
-			});
-		});
-	}
-
-	listenAddRestaurantSubmission() {
-		document.getElementById('form-add-restaurant').addEventListener('submit', submitRestaurant);
-
-		function submitRestaurant(e) {
-			e.preventDefault();
-
-			let stars = parseInt(document.getElementById('add-restaurant-rating').value);
-			let comment = document.getElementById('add-restaurant-comment').value;
-
-			stars.innerHTML = this.showComments();
-			comment.innerHTML = this.displayStars();
-
-			hideModal('add-restaurant-modal');
-
-			document.getElementById('form-add-restaurant').removeEventListener('submit', submitRestaurant);
-		}
 	}
 
 	calculateAverageRating() {
@@ -59,12 +27,11 @@ class Restaurant {
 		}
 
 		let roundedAverageRating = Math.round(averageRating * 10) / 10; // pour avoir 1 decimale
-		return roundedAverageRating;
+		this.averageRating = roundedAverageRating;
 	}
 
 	displayStars() {
-		let rate = this.calculateAverageRating();
-		// let rate = this.averageRating;
+		let rate = this.averageRating;
 		let starPercentage = (rate / 5) * 100;
 		return `<div class="stars-outer">
 				<i class="fa fa-star-o"></i>
@@ -121,10 +88,6 @@ class Restaurant {
 			};
 			self.ratings.push(review);
 			self.calculateAverageRating();
-			// console.log(self.calculateAverageRating());
-			// console.log(self.averageRating);
-			// console.log(self.ratings);
-			// console.log(self.ratings.length);
 
 			document.getElementById(self.id + '-comment').innerHTML = self.showComments();
 			document.getElementById(self.id + '-ratings').innerHTML = self.displayStars();
@@ -136,12 +99,11 @@ class Restaurant {
 	}
 
 	show() {
+		this.calculateAverageRating();
 		this.showOnMap();
 		this.showOnList();
 		this.showStreetViewImage();
 		this.listenForCommentForm();
-		this.listenForAddRestaurantForm();
-		// carte.showNearbyRestaurants();
 	}
 
 	showOnMap() {

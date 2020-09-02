@@ -69,56 +69,74 @@ class Carte {
 		infoWindow.open(map);
 	}
 
-	// showNearbyRestaurants() {
-	// 	let markers = [];
-	// 	let request = {
-	// 		location: { lat: 48.8566969, lng: 2.3514616 },
-	// 		radius: 5000,
-	// 		types: ['restaurant'],
-	// 	};
-	// 	let infoWindow = new google.maps.InfoWindow();
-	// 	let service = new google.maps.places.PlacesService(map);
-	// 	service.nearbySearch(request, callback);
+	showNearbyRestaurants() {
+		let markers = [];
+		let request = {
+			location: { lat: 48.8566969, lng: 2.3514616 },
+			radius: 5000,
+			types: ['restaurant'],
+		};
+		let infoWindow = new google.maps.InfoWindow();
+		let service = new google.maps.places.PlacesService(map);
+		service.nearbySearch(request, callback);
 
-	// 	google.maps.event.addListener(map, 'rightclick', function (event) {
-	// 		map.setCenter(event.latLng);
-	// 		clearResults(markers);
-	// 		request = {
-	// 			location: event.latLng,
-	// 			radius: 5000,
-	// 			types: ['restaurant'],
-	// 		};
-	// 		service.nearbySearch(request, callback);
-	// 	});
+		google.maps.event.addListener(map, 'rightclick', function (event) {
+			map.setCenter(event.latLng);
+			clearResults(markers);
+			request = {
+				location: event.latLng,
+				radius: 5000,
+				types: ['restaurant'],
+			};
+			service.nearbySearch(request, callback);
+		});
 
-	// 	function callback(results, status) {
-	// 		if (status == google.maps.places.PlacesServiceStatus.OK) {
-	// 			results.forEach((result) => {
-	// 				markers.push(createMarker(result));
-	// 			});
-	// 		}
-	// 	}
+		function callback(results, status) {
+			if (status == google.maps.places.PlacesServiceStatus.OK) {
+				results.forEach((result) => {
+					markers.push(createMarker(result));
+					console.log(result);
 
-	// 	function createMarker(place) {
-	// 		let placeLoc = place.geometry.location;
-	// 		let marker = new google.maps.Marker({
-	// 			map: map,
-	// 			position: placeLoc,
-	// 			icon: 'img/restaurant-icon.png',
-	// 		});
+					let item = {
+						restaurantName: result.name,
+						address: result.vicinity,
+						lat: 40,
+						long: 2,
+						ratings: [
+							{
+								stars: result.rating,
+								comment: 'blabla',
+							},
+						],
+					};
 
-	// 		marker.addListener('click', () => {
-	// 			infoWindow.setContent(place.name);
-	// 			infoWindow.open(map, marker);
-	// 		});
-	// 		return marker;
-	// 	}
+					let restaurant = new Restaurant(item, carte);
+					results.push(restaurant);
+					restaurant.show();
+				});
+			}
+		}
 
-	// 	function clearResults(markers) {
-	// 		for (let m in markers) {
-	// 			markers[m].setMap(null);
-	// 		}
-	// 		markers = [];
-	// 	}
-	// }
+		function createMarker(place) {
+			let placeLoc = place.geometry.location;
+			let marker = new google.maps.Marker({
+				map: map,
+				position: placeLoc,
+				icon: 'img/restaurant-icon.png',
+			});
+
+			marker.addListener('click', () => {
+				infoWindow.setContent(place.name);
+				infoWindow.open(map, marker);
+			});
+			return marker;
+		}
+
+		function clearResults(markers) {
+			for (let m in markers) {
+				markers[m].setMap(null);
+			}
+			markers = [];
+		}
+	}
 }

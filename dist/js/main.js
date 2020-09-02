@@ -14,17 +14,15 @@ function start() {
 
 	carte.getUserPosition();
 
-	// google.maps.event.addListener(map, 'rightclick', function (event) {
-	// 	carte.addMarker({ coords: event.latLng });
-	// 	showModal('add-restaurant-modal');
-	// });
-
 	restaurants.forEach((item) => {
 		let restaurant = new Restaurant(item, carte);
 		restaurantsList.push(restaurant);
 	});
 
 	showAllRestaurants(restaurantsList);
+	carte.showNearbyRestaurants();
+
+	// listenForRestaurantAddition(restaurantsList);
 
 	$('#filter').click(function () {
 		let min = $('#rating_min').val();
@@ -52,6 +50,48 @@ function start() {
 				return true;
 			}
 			return false;
+		});
+	}
+
+	function listenForRestaurantAddition(allResto) {
+		// modal, on recupere valeur => on cree l'item
+		google.maps.event.addListener(map, 'rightclick', function (event) {
+			carte.addMarker({ coords: event.latLng, iconImage: 'img/restaurant-icon.png' });
+			console.log(event.latLng);
+			showModal('add-restaurant-modal');
+			document.getElementById('form-add-restaurant').reset();
+
+			document.getElementById('form-add-restaurant').addEventListener('submit', submitRestaurant);
+
+			function submitRestaurant(e) {
+				e.preventDefault();
+
+				let item = {
+					restaurantName: document.getElementById('input-name').value,
+					address: document.getElementById('input-address').value,
+					lat: parseInt(event.lat),
+					long: parseInt(event.lng),
+					ratings: [
+						{
+							stars: parseInt(document.getElementById('add-restaurant-rating').value),
+							comment: document.getElementById('add-restaurant-comment').value,
+						},
+					],
+				};
+				console.log(item);
+
+				let restaurant = new Restaurant(item, carte);
+				allResto.push(restaurant);
+				restaurant.show();
+
+				hideModal('add-restaurant-modal');
+
+				document.getElementById('form-add-restaurant').removeEventListener('submit', submitRestaurant);
+			}
+
+			document.querySelector('.close').addEventListener('click', () => {
+				hideModal('add-restaurant-modal');
+			});
 		});
 	}
 
