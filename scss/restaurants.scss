@@ -1,12 +1,14 @@
 #restaurants {
-	padding: 30px 25px;
+	padding: 20px;
+	max-height: 100vh;
+	overflow: scroll;
 
 	.restaurant {
 		display: block;
 		width: 100%;
 		max-width: 768px;
 		margin: 15px auto;
-		padding: 15px;
+		padding: 10px;
 
 		background-color: #fff;
 		border-radius: 8px;
@@ -15,7 +17,7 @@
 		.name {
 			position: relative;
 			color: #3c3c3c;
-			font-size: 20px;
+			font-size: 18px;
 			transition: all 0.4s linear;
 
 			&:after {
@@ -43,7 +45,7 @@
 			transition: all 0.4s ease-out;
 
 			color: #3c3c3c;
-			font-size: 18px;
+			font-size: 16px;
 		}
 
 		.streetView {
@@ -53,13 +55,14 @@
 
 		.comment {
 			opacity: 0;
+			max-width: 100%;
 			max-height: 0px;
 			overflow: scroll;
 		}
 
 		&.open {
 			.name {
-				margin-bottom: 15px;
+				margin-bottom: 2px;
 
 				&:after {
 					transform: translateY(-50%) rotate(180deg);

@@ -2,18 +2,17 @@
 @import 'modal';
 
 body {
-	background: #fff;
+	background: rgb(0, 0, 0);
 	color: #23272b;
 }
 
-#body-section {
-	height: calc(100vh - 250px);
-}
+// #body-section {
+// 	height: calc(100vh - 250px);
+// }
 
 #header {
 	height: 250px;
 	background-image: url(../img/header-bg.jpg);
-	background-color: #fff;
 	background-size: cover;
 	background-position: center center;
 	background-repeat: no-repeat;
@@ -25,18 +24,35 @@ body {
 }
 
 .container {
-	display: flex;
+	display: grid;
+	grid-template-columns: 7fr 4fr;
 }
 
 #map {
-	width: 60%;
-	height: 100%;
+	position: sticky;
+	top: 0;
+	max-height: 100vh;
 }
 
-#list {
-	width: 40%;
-	height: 100%;
+#filter-option {
+	color: #fff;
 }
+
+// .container {
+// 	display: flex;
+// }
+
+// #map {
+// 	position: sticky;
+// 	top: 0;
+// 	width: 60%;
+// 	height: 100vh;
+// }
+
+// #list {
+// 	width: 40%;
+// 	height: 100%;
+// }
 
 .ratings {
 	font-size: 0.8rem;

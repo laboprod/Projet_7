@@ -95,17 +95,16 @@ class Carte {
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
 				results.forEach((result) => {
 					markers.push(createMarker(result));
-					console.log(result);
 
 					let item = {
 						restaurantName: result.name,
 						address: result.vicinity,
-						lat: 40,
-						long: 2,
+						lat: result.geometry.location.lat(),
+						long: result.geometry.location.lng(),
 						ratings: [
 							{
 								stars: result.rating,
-								comment: 'blabla',
+								comment: result.reviews,
 							},
 						],
 					};

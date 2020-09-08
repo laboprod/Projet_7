@@ -21,6 +21,7 @@ function start() {
 
 	showAllRestaurants(restaurantsList);
 	carte.showNearbyRestaurants();
+	addRestaurant(restaurantsList);
 
 	// listenForRestaurantAddition(restaurantsList);
 
@@ -53,11 +54,26 @@ function start() {
 		});
 	}
 
+	function addRestaurant(allResto) {
+		document.getElementById('add-restaurant-btn').addEventListener('click', () => {
+			alert("Veuillez cliquer sur la carte pour définir l'emplacement du restaurant");
+			listenForRestaurantAddition(allResto);
+		});
+	}
+
+	// function listenForRestaurantLocation() {
+	// 	alert("Veuillez cliquer sur la carte pour définir l'emplacement du restaurant").then((ok) => {
+	// 		if (ok) {
+	// 			// start listening to click events on the map
+	// 			return listenForRestaurantAddition(allResto);
+	// 		}
+	// 	});
+	// 	document.getElementById('add-restaurant-btn').removeEventListener('click', listenForRestaurantLocation);
+	// }
+
 	function listenForRestaurantAddition(allResto) {
-		// modal, on recupere valeur => on cree l'item
-		google.maps.event.addListener(map, 'rightclick', function (event) {
+		google.maps.event.addListener(map, 'click', function (event) {
 			carte.addMarker({ coords: event.latLng, iconImage: 'img/restaurant-icon.png' });
-			console.log(event.latLng);
 			showModal('add-restaurant-modal');
 			document.getElementById('form-add-restaurant').reset();
 
@@ -69,8 +85,8 @@ function start() {
 				let item = {
 					restaurantName: document.getElementById('input-name').value,
 					address: document.getElementById('input-address').value,
-					lat: parseInt(event.lat),
-					long: parseInt(event.lng),
+					lat: event.latLng.lat(),
+					long: event.latLng.lng(),
 					ratings: [
 						{
 							stars: parseInt(document.getElementById('add-restaurant-rating').value),
@@ -78,7 +94,6 @@ function start() {
 						},
 					],
 				};
-				console.log(item);
 
 				let restaurant = new Restaurant(item, carte);
 				allResto.push(restaurant);
