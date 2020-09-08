@@ -21,7 +21,7 @@ function start() {
 
 	showAllRestaurants(restaurantsList);
 	carte.showNearbyRestaurants();
-	addRestaurant(restaurantsList);
+	// addRestaurant(restaurantsList);
 
 	// listenForRestaurantAddition(restaurantsList);
 

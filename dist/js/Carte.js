@@ -71,24 +71,33 @@ class Carte {
 
 	showNearbyRestaurants() {
 		let markers = [];
-		let request = {
-			location: { lat: 48.8566969, lng: 2.3514616 },
-			radius: 5000,
-			types: ['restaurant'],
-		};
-		let infoWindow = new google.maps.InfoWindow();
-		let service = new google.maps.places.PlacesService(map);
-		service.nearbySearch(request, callback);
 
-		google.maps.event.addListener(map, 'rightclick', function (event) {
-			map.setCenter(event.latLng);
-			clearResults(markers);
-			request = {
-				location: event.latLng,
+		navigator.geolocation.getCurrentPosition(function (position) {
+			let pos = {
+				lat: position.coords.latitude,
+				lng: position.coords.longitude,
+			};
+
+			let request = {
+				location: { lat: pos.lat, lng: pos.lng },
+				// location: { lat: 48.8566969, lng: 2.3514616 },
 				radius: 5000,
 				types: ['restaurant'],
 			};
+			let infoWindow = new google.maps.InfoWindow();
+			let service = new google.maps.places.PlacesService(map);
 			service.nearbySearch(request, callback);
+
+			google.maps.event.addListener(map, 'rightclick', function (event) {
+				map.setCenter(event.latLng);
+				clearResults(markers);
+				request = {
+					location: event.latLng,
+					radius: 5000,
+					types: ['restaurant'],
+				};
+				service.nearbySearch(request, callback);
+			});
 		});
 
 		function callback(results, status) {
