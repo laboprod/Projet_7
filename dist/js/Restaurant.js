@@ -59,7 +59,7 @@ class Restaurant {
 			// document.getElementById('my-comment').value = '';
 
 			this.listenCommentSubmission();
-			document.querySelector('.close').addEventListener('click', () => {
+			document.getElementById('close-comment').addEventListener('click', () => {
 				hideModal('add-comment-modal');
 			});
 		});
@@ -134,7 +134,7 @@ class Restaurant {
 		});
 		restaurant_element.innerHTML = this.renderHTML();
 
-		restaurants_element.appendChild(restaurant_element);
+		restaurants_element.prepend(restaurant_element);
 	}
 
 	showComments() {

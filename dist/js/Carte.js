@@ -84,6 +84,7 @@ class Carte {
 				radius: 5000,
 				types: ['restaurant'],
 			};
+
 			let infoWindow = new google.maps.InfoWindow();
 			let service = new google.maps.places.PlacesService(map);
 			service.nearbySearch(request, callback);
@@ -105,6 +106,8 @@ class Carte {
 				results.forEach((result) => {
 					markers.push(createMarker(result));
 
+					console.log(result);
+
 					let item = {
 						restaurantName: result.name,
 						address: result.vicinity,
@@ -113,13 +116,14 @@ class Carte {
 						ratings: [
 							{
 								stars: result.rating,
-								comment: result.reviews,
+								comment: result.user_ratings_total,
 							},
 						],
 					};
 
 					let restaurant = new Restaurant(item, carte);
-					results.push(restaurant);
+					restaurants.push(restaurant);
+					console.log(restaurants);
 					restaurant.show();
 				});
 			}

@@ -49,13 +49,14 @@
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px; }
 
-.close {
+#close-comment, #close-add {
   color: #ccc;
   float: right;
   font-size: 30px;
   color: #fff; }
-  .close:hover,
-  .close :focus {
+  #close-comment:hover,
+  #close-comment :focus, #close-add:hover,
+  #close-add :focus {
     color: #000;
     text-decoration: none;
     cursor: pointer; }

@@ -64,17 +64,20 @@
 	}
 }
 
-.close {
-	color: #ccc;
-	float: right;
-	font-size: 30px;
-	color: #fff;
+#close {
+	&-comment,
+	&-add {
+		color: #ccc;
+		float: right;
+		font-size: 30px;
+		color: #fff;
 
-	&:hover,
-	:focus {
-		color: #000;
-		text-decoration: none;
-		cursor: pointer;
+		&:hover,
+		:focus {
+			color: #000;
+			text-decoration: none;
+			cursor: pointer;
+		}
 	}
 }
 

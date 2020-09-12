@@ -21,7 +21,7 @@ function start() {
 
 	showAllRestaurants(restaurantsList);
 	carte.showNearbyRestaurants();
-	// addRestaurant(restaurantsList);
+	clickToAddRestaurant(restaurantsList);
 
 	// listenForRestaurantAddition(restaurantsList);
 
@@ -54,26 +54,24 @@ function start() {
 		});
 	}
 
-	function addRestaurant(allResto) {
-		document.getElementById('add-restaurant-btn').addEventListener('click', () => {
+	function clickToAddRestaurant(allResto) {
+		// document.getElementById('add-restaurant-btn').addEventListener('click', () => {
+		// 	alert("Veuillez cliquer sur la carte pour définir l'emplacement du restaurant");
+		// 	listenForRestaurantAddition(allResto);
+		// });
+
+		document.getElementById('add-restaurant-btn').addEventListener('click', restAdd);
+
+		function restAdd() {
 			alert("Veuillez cliquer sur la carte pour définir l'emplacement du restaurant");
 			listenForRestaurantAddition(allResto);
-		});
-	}
 
-	// function listenForRestaurantLocation() {
-	// 	alert("Veuillez cliquer sur la carte pour définir l'emplacement du restaurant").then((ok) => {
-	// 		if (ok) {
-	// 			// start listening to click events on the map
-	// 			return listenForRestaurantAddition(allResto);
-	// 		}
-	// 	});
-	// 	document.getElementById('add-restaurant-btn').removeEventListener('click', listenForRestaurantLocation);
-	// }
+			document.getElementById('add-restaurant-btn').removeEventListener('click', restAdd);
+		}
+	}
 
 	function listenForRestaurantAddition(allResto) {
 		google.maps.event.addListener(map, 'click', function (event) {
-			carte.addMarker({ coords: event.latLng, iconImage: 'img/restaurant-icon.png' });
 			showModal('add-restaurant-modal');
 			document.getElementById('form-add-restaurant').reset();
 
@@ -81,6 +79,7 @@ function start() {
 
 			function submitRestaurant(e) {
 				e.preventDefault();
+				carte.addMarker({ coords: event.latLng, iconImage: 'img/restaurant-icon.png' });
 
 				let item = {
 					restaurantName: document.getElementById('input-name').value,
@@ -104,42 +103,16 @@ function start() {
 				document.getElementById('form-add-restaurant').removeEventListener('submit', submitRestaurant);
 			}
 
-			document.querySelector('.close').addEventListener('click', () => {
+			document.getElementById('close-add').addEventListener('click', () => {
 				hideModal('add-restaurant-modal');
 			});
+
+			// document.getElementById('close-add').removeEventListener('click', hideAddModal);
+			// function hideAddModal() {
+			// 	hideModal('add-restaurant-modal');
+			// }
 		});
 	}
-
-	// Modal add comment
-	// document.getElementById('add-comment-modal').addEventListener('click', () => {
-	// 	show('add-comment-modal');
-	// });
-	// document.getElementById('close-modal').addEventListener('click', () => {
-	// 	hide('add-comment-modal');
-	// });
-	// window.addEventListener('click', outsideClick());
-
-	// const modal = document.querySelector('#add-comment-modal');
-	// // const modalBtn = document.querySelector('#modal-btn');
-	// // const closeBtn = document.querySelector('.close');
-
-	// // modalBtn.addEventListener('click', openModal);
-	// // closeBtn.addEventListener('click', closeModal);
-	// // window.addEventListener('click', outsideClick);
-
-	// // function openModal() {
-	// // 	modal.style.display = 'block';
-	// // }
-
-	// // function closeModal() {
-	// // 	modal.style.display = 'none';
-	// // }
-
-	// function outsideClick(e) {
-	// 	if (e.target == modal) {
-	// 		modal.style.display = 'none';
-	// 	}
-	// }
 }
 
 function showModal(id) {
