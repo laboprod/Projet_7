@@ -64,6 +64,8 @@ function start() {
 
 		function restAdd() {
 			alert("Veuillez cliquer sur la carte pour définir l'emplacement du restaurant");
+			// document.body.style.cursor = 'crosshair';
+			map.setOptions({ draggableCursor: 'crosshair' });
 			listenForRestaurantAddition(allResto);
 
 			document.getElementById('add-restaurant-btn').removeEventListener('click', restAdd);

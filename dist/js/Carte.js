@@ -116,10 +116,14 @@ class Carte {
 						ratings: [
 							{
 								stars: result.rating,
-								comment: result.user_ratings_total,
+								comment: result.reviews,
+								// comment: `https://maps.googleapis.com/maps/api/place/details/json?place_id=${result.place_id}&fields=reviews/text&key=AIzaSyBuqGWfwnf0jqwfu8WJprNaJoLcD00sol4`,
 							},
 						],
 					};
+
+					let service = new google.maps.places.PlacesService(map);
+					service.getDetails(request, callback);
 
 					let restaurant = new Restaurant(item, carte);
 					restaurants.push(restaurant);
