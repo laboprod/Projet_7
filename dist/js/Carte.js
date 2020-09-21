@@ -108,29 +108,50 @@ class Carte {
 
 					console.log(result);
 
+					let request = {
+						placeId: result.place_id,
+						fields: ['reviews'],
+					};
+
 					let item = {
 						restaurantName: result.name,
 						address: result.vicinity,
 						lat: result.geometry.location.lat(),
 						long: result.geometry.location.lng(),
 						ratings: [
-							{
-								stars: result.rating,
-								comment: result.reviews,
-								// comment: `https://maps.googleapis.com/maps/api/place/details/json?place_id=${result.place_id}&fields=reviews/text&key=AIzaSyBuqGWfwnf0jqwfu8WJprNaJoLcD00sol4`,
-							},
+							// {
+							// 	stars: result.rating,
+							// 	comment: result.reviews,
+							// 	comment: `https://maps.googleapis.com/maps/api/place/details/json?place_id=${result.place_id}&fields=reviews/text&key=AIzaSyBuqGWfwnf0jqwfu8WJprNaJoLcD00sol4`,
+							// },
 						],
 					};
 
 					let service = new google.maps.places.PlacesService(map);
-					service.getDetails(request, callback);
+					service.getDetails(request, detailSearchCallBack(item));
+				});
+			}
+		}
 
+		function detailSearchCallBack(item) {
+			return function callbackPlaceDetails(result, status) {
+				if (status == google.maps.places.PlacesServiceStatus.OK) {
+					let reviews = result.reviews || [];
+					reviews.forEach(function (review) {
+						let resultDetailRating = review.rating;
+						let resultDetailComment = review.text;
+
+						item.ratings.push({
+							stars: resultDetailRating,
+							comment: resultDetailComment,
+						});
+					});
 					let restaurant = new Restaurant(item, carte);
 					restaurants.push(restaurant);
 					console.log(restaurants);
 					restaurant.show();
-				});
-			}
+				}
+			};
 		}
 
 		function createMarker(place) {
