@@ -1,6 +1,7 @@
 class Carte {
 	constructor(map) {
 		this.map = map;
+		this.placeService = new google.maps.places.PlacesService(map);
 		this.markers = [];
 	}
 
@@ -72,7 +73,7 @@ class Carte {
 	showNearbyRestaurants() {
 		let markers = [];
 
-		navigator.geolocation.getCurrentPosition(function (position) {
+		navigator.geolocation.getCurrentPosition((position) => {
 			let pos = {
 				lat: position.coords.latitude,
 				lng: position.coords.longitude,
@@ -80,24 +81,22 @@ class Carte {
 
 			let request = {
 				location: { lat: pos.lat, lng: pos.lng },
-				// location: { lat: 48.8566969, lng: 2.3514616 },
 				radius: 5000,
 				types: ['restaurant'],
 			};
 
-			let infoWindow = new google.maps.InfoWindow();
-			let service = new google.maps.places.PlacesService(map);
-			service.nearbySearch(request, callback);
+			// let service = new google.maps.places.PlacesService(map);
+			this.placeService.nearbySearch(request, callback);
 
-			google.maps.event.addListener(map, 'rightclick', function (event) {
+			google.maps.event.addListener(map, 'rightclick', (event) => {
 				map.setCenter(event.latLng);
-				clearResults(markers);
+				this.clearMarkers();
 				request = {
 					location: event.latLng,
 					radius: 5000,
 					types: ['restaurant'],
 				};
-				service.nearbySearch(request, callback);
+				this.placeService.nearbySearch(request, callback);
 			});
 		});
 
@@ -105,8 +104,6 @@ class Carte {
 			if (status == google.maps.places.PlacesServiceStatus.OK) {
 				results.forEach((result) => {
 					markers.push(createMarker(result));
-
-					console.log(result);
 
 					let request = {
 						placeId: result.place_id,
@@ -118,13 +115,7 @@ class Carte {
 						address: result.vicinity,
 						lat: result.geometry.location.lat(),
 						long: result.geometry.location.lng(),
-						ratings: [
-							// {
-							// 	stars: result.rating,
-							// 	comment: result.reviews,
-							// 	comment: `https://maps.googleapis.com/maps/api/place/details/json?place_id=${result.place_id}&fields=reviews/text&key=AIzaSyBuqGWfwnf0jqwfu8WJprNaJoLcD00sol4`,
-							// },
-						],
+						ratings: [],
 					};
 
 					let service = new google.maps.places.PlacesService(map);
@@ -148,13 +139,13 @@ class Carte {
 					});
 					let restaurant = new Restaurant(item, carte);
 					restaurants.push(restaurant);
-					console.log(restaurants);
 					restaurant.show();
 				}
 			};
 		}
 
 		function createMarker(place) {
+			let infoWindow = new google.maps.InfoWindow();
 			let placeLoc = place.geometry.location;
 			let marker = new google.maps.Marker({
 				map: map,
@@ -169,11 +160,11 @@ class Carte {
 			return marker;
 		}
 
-		function clearResults(markers) {
-			for (let m in markers) {
-				markers[m].setMap(null);
-			}
-			markers = [];
-		}
+		// function clearResults(markers) {
+		// 	for (let m in markers) {
+		// 		markers[m].setMap(null);
+		// 	}
+		// 	markers = [];
+		// }
 	}
 }
