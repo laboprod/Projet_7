@@ -148,6 +148,10 @@ body {
   #header #logo-img {
     width: 300px; }
 
+span {
+  margin-left: 30px;
+  color: #fff; }
+
 .container {
   display: grid;
   grid-template-columns: 7fr 4fr; }

@@ -85,19 +85,17 @@ class Carte {
 				types: ['restaurant'],
 			};
 
-			// let service = new google.maps.places.PlacesService(map);
 			this.placeService.nearbySearch(request, callback);
+		});
 
-			google.maps.event.addListener(map, 'rightclick', (event) => {
-				map.setCenter(event.latLng);
-				this.clearMarkers();
-				request = {
-					location: event.latLng,
-					radius: 5000,
-					types: ['restaurant'],
-				};
-				this.placeService.nearbySearch(request, callback);
-			});
+		google.maps.event.addListener(map, 'rightclick', (event) => {
+			map.setCenter(event.latLng);
+			let request = {
+				location: event.latLng,
+				radius: 5000,
+				types: ['restaurant'],
+			};
+			this.placeService.nearbySearch(request, callback);
 		});
 
 		function callback(results, status) {
@@ -128,7 +126,7 @@ class Carte {
 			return function callbackPlaceDetails(result, status) {
 				if (status == google.maps.places.PlacesServiceStatus.OK) {
 					let reviews = result.reviews || [];
-					reviews.forEach(function (review) {
+					reviews.forEach((review) => {
 						let resultDetailRating = review.rating;
 						let resultDetailComment = review.text;
 
@@ -145,6 +143,8 @@ class Carte {
 		}
 
 		function createMarker(place) {
+			carte.clearMarkers();
+
 			let infoWindow = new google.maps.InfoWindow();
 			let placeLoc = place.geometry.location;
 			let marker = new google.maps.Marker({
@@ -159,12 +159,5 @@ class Carte {
 			});
 			return marker;
 		}
-
-		// function clearResults(markers) {
-		// 	for (let m in markers) {
-		// 		markers[m].setMap(null);
-		// 	}
-		// 	markers = [];
-		// }
 	}
 }

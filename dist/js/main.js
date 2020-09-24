@@ -23,19 +23,6 @@ function start() {
 	carte.showNearbyRestaurants();
 	clickToAddRestaurant(restaurantsList);
 
-	// google.maps.event.addListener(map, 'rightclick', function (event) {
-	// 	map.setCenter(event.latLng);
-	// 	carte.clearMarkers();
-	// 	request = {
-	// 		location: event.latLng,
-	// 		radius: 5000,
-	// 		types: ['restaurant'],
-	// 	};
-	// 	this.placeService.nearbySearch(request, callback);
-	// });
-
-	// listenForRestaurantAddition(restaurantsList);
-
 	$('#filter').click(function () {
 		let min = $('#rating_min').val();
 		let max = $('#rating_max').val();
@@ -66,16 +53,10 @@ function start() {
 	}
 
 	function clickToAddRestaurant(allResto) {
-		// document.getElementById('add-restaurant-btn').addEventListener('click', () => {
-		// 	alert("Veuillez cliquer sur la carte pour définir l'emplacement du restaurant");
-		// 	listenForRestaurantAddition(allResto);
-		// });
-
 		document.getElementById('add-restaurant-btn').addEventListener('click', restAdd);
 
 		function restAdd() {
 			alert("Veuillez cliquer sur la carte pour définir l'emplacement du restaurant");
-			// document.body.style.cursor = 'crosshair';
 			map.setOptions({ draggableCursor: 'crosshair' });
 			listenForRestaurantAddition(allResto);
 
@@ -128,11 +109,6 @@ function start() {
 			document.getElementById('close-add').addEventListener('click', () => {
 				hideModal('add-restaurant-modal');
 			});
-
-			// document.getElementById('close-add').removeEventListener('click', hideAddModal);
-			// function hideAddModal() {
-			// 	hideModal('add-restaurant-modal');
-			// }
 		}
 	}
 }
