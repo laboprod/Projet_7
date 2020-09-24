@@ -108,6 +108,7 @@ function start() {
 
 			document.getElementById('close-add').addEventListener('click', () => {
 				hideModal('add-restaurant-modal');
+				disableRestaurantAddition();
 			});
 		}
 	}
