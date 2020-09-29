@@ -84,6 +84,7 @@ class Carte {
 			radius: 5000,
 			types: ['restaurant'],
 		};
+		liste.emptyRestaurantsList();
 
 		this.placeService.nearbySearch(request, this.callback);
 	}

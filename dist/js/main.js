@@ -21,14 +21,17 @@ function start() {
 		// restaurantsList.push(restaurant);
 	});
 
-	liste.show();
+	// liste.show();
+	liste.showAllRestaurants(liste.all);
+
+	liste.listenForFiltering();
+
 	// showAllRestaurants(restaurantsList);
 	// carte.showNearbyRestaurants();
 	carte.listenForRightClick();
 
 	// carte.listenForEnablingAddition(liste.all);
 	listenForEnablingRestaurantAddition(liste.all);
-	liste.listenForFiltering();
 }
 
 function listenForEnablingRestaurantAddition(allResto) {
