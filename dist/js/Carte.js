@@ -135,8 +135,6 @@ class Carte {
 	}
 
 	createMarker(place) {
-		// this.clearMarkers();
-
 		let infoWindow = new google.maps.InfoWindow();
 		let placeLoc = place.geometry.location;
 		let marker = new google.maps.Marker({
