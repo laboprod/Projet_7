@@ -73,21 +73,14 @@ class Carte {
 	listenForRightClick() {
 		google.maps.event.addListener(map, 'rightclick', (event) => {
 			map.setCenter(event.latLng);
-			let request = {
-				location: event.latLng,
-				radius: 5000,
-				types: ['restaurant'],
-			};
-			this.placeService.nearbySearch(request, this.callback);
+			this.clearMarkers();
+			this.showNearbyRestaurants(event.latLng);
 		});
 	}
 
-	showNearbyRestaurants(userPosition) {
-		// let markers = [];
-		// let self = this;
-
+	showNearbyRestaurants(position) {
 		let request = {
-			location: userPosition,
+			location: position,
 			radius: 5000,
 			types: ['restaurant'],
 		};
@@ -96,7 +89,7 @@ class Carte {
 	}
 
 	callback(results, status) {
-		let markers = [];
+		let markers = carte.markers;
 		if (status == google.maps.places.PlacesServiceStatus.OK) {
 			results.forEach((result) => {
 				markers.push(carte.createMarker(result));
@@ -142,7 +135,7 @@ class Carte {
 	}
 
 	createMarker(place) {
-		this.clearMarkers();
+		// this.clearMarkers();
 
 		let infoWindow = new google.maps.InfoWindow();
 		let placeLoc = place.geometry.location;
