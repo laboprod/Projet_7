@@ -18,19 +18,15 @@ function start() {
 	restaurants.forEach((item) => {
 		let restaurant = new Restaurant(item, carte);
 		liste.add(restaurant);
-		// restaurantsList.push(restaurant);
+		console.log(liste);
 	});
 
-	// liste.show();
 	liste.showAllRestaurants(liste.all);
 
 	liste.listenForFiltering();
 
-	// showAllRestaurants(restaurantsList);
-	// carte.showNearbyRestaurants();
 	carte.listenForRightClick();
 
-	// carte.listenForEnablingAddition(liste.all);
 	listenForEnablingRestaurantAddition(liste.all);
 }
 

@@ -129,7 +129,8 @@ class Carte {
 					});
 				});
 				let restaurant = new Restaurant(item, carte);
-				restaurants.push(restaurant);
+				liste.add(restaurant);
+				// restaurants.push(restaurant);
 				restaurant.show();
 			}
 		};

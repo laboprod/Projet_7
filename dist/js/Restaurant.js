@@ -55,8 +55,6 @@ class Restaurant {
 			document.getElementById('modal-restaurant-name').innerHTML = this.name;
 			showModal('add-comment-modal');
 			document.getElementById('form-comment').reset();
-			// document.getElementById('my-rating').value = '';
-			// document.getElementById('my-comment').value = '';
 
 			this.listenCommentSubmission();
 			document.getElementById('close-comment').addEventListener('click', () => {

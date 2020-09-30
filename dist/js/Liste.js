@@ -36,7 +36,7 @@ class Liste {
 	}
 
 	filterRestaurant(min, max) {
-		return restaurants.filter((restaurant) => {
+		return liste.all.filter((restaurant) => {
 			if (restaurant.averageRating >= min && restaurant.averageRating <= max) {
 				return true;
 			}
