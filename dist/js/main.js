@@ -22,9 +22,9 @@ function start() {
 
 	liste.listenForFiltering();
 
-	carte.listenForRightClick();
-
 	listenForEnablingRestaurantAddition(liste.all);
+
+	carte.listenForRightClick();
 }
 
 function listenForEnablingRestaurantAddition(allResto) {
