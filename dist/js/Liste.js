@@ -17,26 +17,26 @@ class Liste {
 		document.getElementById('filter').addEventListener('click', () => {
 			let min = $('#rating_min').val();
 			let max = $('#rating_max').val();
-			this.filteredRestaurants = this.filterRestaurant(min, max);
+			this.all = this.filterRestaurant(min, max);
 
-			this.emptyRestaurantsList();
+			this.emptyRestaurantsHTMLList();
 			carte.clearMarkers();
-			this.showAllRestaurants(this.filteredRestaurants);
+			this.showAllRestaurants();
 		});
 	}
 
-	emptyRestaurantsList() {
+	emptyRestaurantsHTMLList() {
 		document.getElementById('restaurants').innerHTML = '';
 	}
 
-	showAllRestaurants(restaurants) {
-		restaurants.forEach((restaurant) => {
+	showAllRestaurants() {
+		this.all.forEach((restaurant) => {
 			restaurant.show();
 		});
 	}
 
 	filterRestaurant(min, max) {
-		return liste.all.filter((restaurant) => {
+		return this.all.filter((restaurant) => {
 			if (restaurant.averageRating >= min && restaurant.averageRating <= max) {
 				return true;
 			}

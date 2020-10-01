@@ -49,6 +49,19 @@
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px; }
 
+#loading {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  background: url(../img/gifLoad.gif) 50% 50% no-repeat;
+  background-size: 100px;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  cursor: wait; }
+
 #close-comment, #close-add {
   color: #ccc;
   float: right;

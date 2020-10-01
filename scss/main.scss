@@ -2,8 +2,8 @@
 @import 'modal';
 
 body {
-	background: rgb(0, 0, 0);
-	color: #23272b;
+	background: #fff;
+	// color: #333;
 }
 
 // #body-section {
@@ -24,7 +24,7 @@ body {
 }
 span {
 	margin-left: 30px;
-	color: #fff;
+	color: rgb(0, 0, 0);
 }
 
 .container {
@@ -39,7 +39,7 @@ span {
 }
 
 #filter-option {
-	color: #fff;
+	color: rgb(0, 0, 0);
 }
 
 // .container {

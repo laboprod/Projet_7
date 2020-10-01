@@ -72,6 +72,7 @@ class Carte {
 
 	listenForRightClick() {
 		google.maps.event.addListener(map, 'rightclick', (event) => {
+			showModal('loading');
 			map.setCenter(event.latLng);
 			this.clearMarkers();
 			this.showNearbyRestaurants(event.latLng);
@@ -84,9 +85,9 @@ class Carte {
 			radius: 5000,
 			types: ['restaurant'],
 		};
-		liste.emptyRestaurantsList();
+		liste.emptyRestaurantsHTMLList();
 
-		this.placeService.nearbySearch(request, this.callback);
+		this.placeService.nearbySearch(request, this.callback.bind(this));
 	}
 
 	callback(results, status) {
@@ -109,8 +110,9 @@ class Carte {
 				};
 
 				let service = new google.maps.places.PlacesService(map);
-				service.getDetails(request, carte.detailSearchCallBack(item));
+				service.getDetails(request, carte.detailSearchCallBack(item).bind(this));
 			});
+			hideModal('loading');
 			return markers;
 		}
 	}
@@ -129,8 +131,7 @@ class Carte {
 					});
 				});
 				let restaurant = new Restaurant(item, carte);
-				liste.add(restaurant);
-				// restaurants.push(restaurant);
+				this.liste.all.push(restaurant);
 				restaurant.show();
 			}
 		};

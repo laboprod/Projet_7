@@ -2,8 +2,6 @@
 // import { Restaurant } from './Restaurant.js';
 // import { restaurants } from './restaurants-json.js';
 
-// let restaurantsList = [];
-
 function start() {
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: { lat: 48.8566969, lng: 2.3514616 },
@@ -18,7 +16,6 @@ function start() {
 	restaurants.forEach((item) => {
 		let restaurant = new Restaurant(item, carte);
 		liste.add(restaurant);
-		console.log(liste);
 	});
 
 	liste.showAllRestaurants(liste.all);

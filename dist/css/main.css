@@ -113,6 +113,19 @@
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px; }
 
+#loading {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  background: url(../img/gifLoad.gif) 50% 50% no-repeat;
+  background-size: 100px;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0px;
+  left: 0px;
+  height: 100%;
+  width: 100%;
+  cursor: wait; }
+
 #close-comment, #close-add {
   color: #ccc;
   float: right;
@@ -135,8 +148,7 @@ textarea {
   width: 100%; }
 
 body {
-  background: black;
-  color: #23272b; }
+  background: #fff; }
 
 #header {
   height: 250px;
@@ -150,7 +162,7 @@ body {
 
 span {
   margin-left: 30px;
-  color: #fff; }
+  color: black; }
 
 .container {
   display: grid;
@@ -162,7 +174,7 @@ span {
   max-height: 100vh; }
 
 #filter-option {
-  color: #fff; }
+  color: black; }
 
 .ratings {
   font-size: 0.8rem;
