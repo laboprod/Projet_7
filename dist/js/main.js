@@ -18,7 +18,9 @@ function start() {
 		liste.add(restaurant);
 	});
 
-	liste.showAllRestaurants(liste.all);
+	liste.showAllRestaurants();
+
+	liste.showFilteredRestaurants();
 
 	liste.listenForFiltering();
 

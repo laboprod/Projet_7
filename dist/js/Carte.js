@@ -28,8 +28,8 @@ class Carte {
 	clearMarkers() {
 		this.markers.forEach((marker) => {
 			marker.setMap(null);
-			this.markers = [];
 		});
+		this.markers = [];
 	}
 
 	getUserPosition() {
@@ -75,6 +75,7 @@ class Carte {
 			showModal('loading');
 			map.setCenter(event.latLng);
 			this.clearMarkers();
+			this.liste.empty();
 			this.showNearbyRestaurants(event.latLng);
 		});
 	}

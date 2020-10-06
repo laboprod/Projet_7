@@ -1,32 +1,37 @@
 class Liste {
 	constructor() {
 		this.all = [];
+		this.filtered = [];
 	}
 
 	add(restaurant) {
 		this.all.push(restaurant);
 	}
 
-	// show() {
-	// 	this.all.forEach((restaurant) => {
-	// 		restaurant.show();
-	// 	});
-	// }
+	empty() {
+		this.all = [];
+	}
 
 	listenForFiltering() {
 		document.getElementById('filter').addEventListener('click', () => {
 			let min = $('#rating_min').val();
 			let max = $('#rating_max').val();
-			this.all = this.filterRestaurant(min, max);
+			this.filtered = this.filterRestaurant(min, max);
 
 			this.emptyRestaurantsHTMLList();
 			carte.clearMarkers();
-			this.showAllRestaurants();
+			this.showFilteredRestaurants();
 		});
 	}
 
 	emptyRestaurantsHTMLList() {
 		document.getElementById('restaurants').innerHTML = '';
+	}
+
+	showFilteredRestaurants() {
+		this.filtered.forEach((restaurant) => {
+			restaurant.show();
+		});
 	}
 
 	showAllRestaurants() {
