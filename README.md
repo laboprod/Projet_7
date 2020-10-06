@@ -1,4 +1,3 @@
-# Projet_7
 Vous avez choisi de vous lancer dans le business des avis de restaurants. Votre objectif : créer un service simple et utile qui permet d'avoir des avis sur des restaurants autour de soi.
 Pour ce projet, vous allez devoir apprendre à utiliser des API externes, telles que celles de Google Maps et de Google Places (votre plus gros concurrent ;) ). Et ce n'est pas tout : vous allez devoir orchestrer toutes ces informations de manière cohérente dans votre application !
 Etape 1 : la carte des restaurants
@@ -30,12 +29,11 @@ Les informations ne seront pas sauvegardées si on quitte la page (elles restent
 
 Etape 3 : intégration avec l'API de Google Places
 Pour l'instant, il n'y a pas beaucoup de restaurants et pas beaucoup d'avis. Heureusement, Google Places propose une API pour récupérer des restaurants et des avis. Servez-vous en pour afficher des restaurants et avis supplémentaires sur votre carte !
-Ici la documentation : https://developers.google.com/places/
+
 
 Vous utiliserez la search api pour trouver des restaurants dans la zone affichée.
 Lisez bien la documentation pour savoir comment accéder aux données de Google Places et n'hésitez pas à faire autant de recherches Google que nécessaire quand vous butez sur un problème. ;)
  
-Compétences évaluées
-
-Développer une application JavaScript complète en respectant un cahier des charges</br>
-Utiliser une API externe en JavaScript
+Compétences évaluées :
+- Développer une application JavaScript complète en respectant un cahier des charges</br>
+- Utiliser une API externe en JavaScript
