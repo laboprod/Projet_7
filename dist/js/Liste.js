@@ -18,13 +18,13 @@ class Liste {
 			let max = $('#rating_max').val();
 			this.filtered = this.filterRestaurant(min, max);
 
-			this.emptyRestaurantsHTMLList();
+			this.emptyHTML();
 			carte.clearMarkers();
 			this.showFilteredRestaurants();
 		});
 	}
 
-	emptyRestaurantsHTMLList() {
+	emptyHTML() {
 		document.getElementById('restaurants').innerHTML = '';
 	}
 

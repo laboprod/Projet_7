@@ -6,23 +6,30 @@ class Carte {
 		this.liste = liste;
 	}
 
-	addMarker(props) {
+	addMarker(type, pos, text) {
+		let icon = 'img/restaurant-icon.png';
+
+		if (type === 'user') {
+			icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+		}
+
 		let marker = new google.maps.Marker({
-			position: props.coords,
+			position: { lat: pos.lat, lng: pos.lng },
 			map: this.map,
-			icon: props.iconImage,
+			animation: google.maps.Animation.DROP,
+			icon: icon,
 		});
 
-		if (props.content) {
-			let infoWindow = new google.maps.InfoWindow({
-				content: props.content,
-			});
+		if (text) {
+			let infoWindow = new google.maps.InfoWindow();
 
 			marker.addListener('click', () => {
+				infoWindow.setContent(`<h2>${text}</h2>`);
 				infoWindow.open(this.map, marker);
 			});
-			this.markers.push(marker);
 		}
+
+		this.markers.push(marker);
 	}
 
 	clearMarkers() {
@@ -33,35 +40,26 @@ class Carte {
 	}
 
 	getUserPosition() {
-		let infoWindow = new google.maps.InfoWindow();
+		let self = this;
+		return new Promise(function (resolve, reject) {
+			let infoWindow = new google.maps.InfoWindow();
 
-		if (!navigator.geolocation) {
-			handleLocationError(false, infoWindow, map.getCenter());
-		}
-		navigator.geolocation.getCurrentPosition(
-			(position) => {
-				let pos = {
-					lat: position.coords.latitude,
-					lng: position.coords.longitude,
-				};
-				new google.maps.Marker({
-					position: { lat: pos.lat, lng: pos.lng },
-					map: map,
-					animation: google.maps.Animation.DROP,
-					title: 'Vous êtes ici !',
-					icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-				});
-
-				// infoWindow.setPosition(pos);
-				// infoWindow.setContent('Vous êtes ici !');
-				// infoWindow.open(map);
-				map.setCenter(pos);
-				this.showNearbyRestaurants(pos);
-			},
-			() => {
-				handleLocationError(true, infoWindow, map.getCenter());
+			if (!navigator.geolocation) {
+				self.handleLocationError(false, infoWindow, map.getCenter());
+				reject('an issue occured');
 			}
-		);
+			navigator.geolocation.getCurrentPosition(
+				(position) => {
+					resolve({
+						lat: position.coords.latitude,
+						lng: position.coords.longitude,
+					});
+				},
+				() => {
+					self.handleLocationError(true, infoWindow, map.getCenter());
+				}
+			);
+		});
 	}
 
 	handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -71,71 +69,68 @@ class Carte {
 	}
 
 	listenForRightClick() {
-		google.maps.event.addListener(map, 'rightclick', (event) => {
+		google.maps.event.addListener(map, 'rightclick', (e) => {
+			let position = e.latLng;
+
 			showModal('loading');
-			map.setCenter(event.latLng);
+			map.setCenter(position);
 			this.clearMarkers();
 			this.liste.empty();
-			this.showNearbyRestaurants(event.latLng);
+			this.liste.emptyHTML();
+			this.fetchNearbyRestaurants(position)
+				.then((results) => {
+					this.display(results);
+				})
+				.then(() => {
+					hideModal('loading');
+				});
 		});
 	}
 
-	showNearbyRestaurants(position) {
+	fetchNearbyRestaurants(position) {
 		let request = {
 			location: position,
 			radius: 5000,
 			types: ['restaurant'],
 		};
-		liste.emptyRestaurantsHTMLList();
 
-		this.placeService.nearbySearch(request, this.callback.bind(this));
+		let self = this;
+
+		return new Promise(function (resolve, reject) {
+			self.placeService.nearbySearch(request, function (results, status) {
+				if (status == google.maps.places.PlacesServiceStatus.OK) {
+					resolve(results);
+				} else {
+					reject('an error occured');
+				}
+			});
+		});
 	}
 
-	callback(results, status) {
-		let markers = carte.markers;
-		if (status == google.maps.places.PlacesServiceStatus.OK) {
+	display(results) {
+		let self = this;
+
+		return new Promise(function (resolve, reject) {
 			results.forEach((result) => {
-				markers.push(carte.createMarker(result));
-
-				let request = {
-					placeId: result.place_id,
-					fields: ['reviews'],
-				};
-
 				let item = {
 					restaurantName: result.name,
 					address: result.vicinity,
 					lat: result.geometry.location.lat(),
 					long: result.geometry.location.lng(),
 					ratings: [],
+					placeId: result.place_id,
 				};
 
-				let service = new google.maps.places.PlacesService(map);
-				service.getDetails(request, carte.detailSearchCallBack(item).bind(this));
-			});
-			hideModal('loading');
-			return markers;
-		}
-	}
+				let restaurant = new Restaurant(item, self);
 
-	detailSearchCallBack(item) {
-		return function callbackPlaceDetails(result, status) {
-			if (status == google.maps.places.PlacesServiceStatus.OK) {
-				let reviews = result.reviews || [];
-				reviews.forEach((review) => {
-					let resultDetailRating = review.rating;
-					let resultDetailComment = review.text;
-
-					item.ratings.push({
-						stars: resultDetailRating,
-						comment: resultDetailComment,
-					});
+				restaurant.fetchReviews().then(() => {
+					self.liste.all.push(restaurant);
+					restaurant.show();
 				});
-				let restaurant = new Restaurant(item, carte);
-				this.liste.all.push(restaurant);
-				restaurant.show();
-			}
-		};
+			});
+
+			resolve();
+		});
 	}
 
 	createMarker(place) {

@@ -1,5 +1,5 @@
 class Restaurant {
-	constructor({ restaurantName, lat, long, address, ratings }, carte) {
+	constructor({ restaurantName, lat, long, address, ratings, placeId }, carte) {
 		this.name = restaurantName;
 		this.address = address;
 		this.lat = lat;
@@ -7,16 +7,15 @@ class Restaurant {
 		this.ratings = ratings;
 		this.averageRating = 0;
 		this.totalRatings = 0;
-		this.totalComments = 0;
+		this.placeId = placeId;
 		this.carte = carte;
-		this.id = String(lat) + String(long);
 	}
 
 	calculateAverageRating() {
 		let totalRatings = 0;
 		let averageRating = 0;
 
-		this.ratings.forEach(function (ratings) {
+		this.ratings.forEach((ratings) => {
 			totalRatings += ratings.stars;
 		});
 
@@ -51,7 +50,7 @@ class Restaurant {
 	}
 
 	listenForCommentForm() {
-		document.getElementById('modal-button-' + this.id).addEventListener('click', () => {
+		document.getElementById('modal-button-' + this.placeId).addEventListener('click', () => {
 			document.getElementById('modal-restaurant-name').innerHTML = this.name;
 			showModal('add-comment-modal');
 			document.getElementById('form-comment').reset();
@@ -65,39 +64,40 @@ class Restaurant {
 
 	renderHTML() {
 		return `
-		<div class="name" id="${this.id}-name">${this.name}</div>
-		<div class="address" id="${this.id}-address">${this.address}</div>
-		<img class="streetView" id="${this.id}-streetView">
-		<div class="ratings" id="${this.id}-ratings">${this.displayStars()}</div>
-		<div class="comment" id="${this.id}-comment">${this.showComments()}</div>
-		<button class="button" data-id="${this.id}" id="modal-button-${this.id}">Ajouter un commentaire</button>
+			<div class="name" id="${this.placeId}-name">${this.name}</div>
+			<div class="address" id="${this.placeId}-address">${this.address}</div>
+			<img class="streetView" id="${this.placeId}-streetView">
+			<div class="ratings" id="${this.placeId}-ratings">${this.displayStars()}</div>
+			<div class="comment" id="${this.placeId}-comment">${this.showComments()}</div>
+			<button class="button" data-id="${this.placeId}" id="modal-button-${this.placeId}">Ajouter un commentaire</button>
 		`;
 	}
 
 	listenCommentSubmission() {
 		let self = this;
-		document.getElementById('form-comment').addEventListener('submit', submitComment);
+		document.getElementById('form-comment').addEventListener(
+			'submit',
+			(e) => {
+				e.preventDefault();
 
-		function submitComment(e) {
-			e.preventDefault();
-			let review = {
-				stars: parseInt(document.getElementById('my-rating').value),
-				comment: document.getElementById('my-comment').value,
-			};
-			self.ratings.push(review);
-			self.calculateAverageRating();
+				let review = {
+					stars: parseInt(document.getElementById('my-rating').value),
+					comment: document.getElementById('my-comment').value,
+				};
 
-			document.getElementById(self.id + '-comment').innerHTML = self.showComments();
-			document.getElementById(self.id + '-ratings').innerHTML = self.displayStars();
+				self.ratings.push(review);
+				self.calculateAverageRating();
 
-			hideModal('add-comment-modal');
+				document.getElementById(self.placeId + '-comment').innerHTML = self.showComments();
+				document.getElementById(self.placeId + '-ratings').innerHTML = self.displayStars();
 
-			document.getElementById('form-comment').removeEventListener('submit', submitComment);
-		}
+				hideModal('add-comment-modal');
+			},
+			{ once: true }
+		);
 	}
 
 	show() {
-		this.calculateAverageRating();
 		this.showOnMap();
 		this.showOnList();
 		this.showStreetViewImage();
@@ -105,16 +105,7 @@ class Restaurant {
 	}
 
 	showOnMap() {
-		this.carte.addMarker({
-			coords: {
-				lat: this.lat,
-				lng: this.lng,
-			},
-			iconImage: 'img/restaurant-icon.png',
-
-			// iconImage: 'http://maps.google.com/mapfiles/kml/shapes/dining.png',
-			content: `<h1>${this.name}</h1>`,
-		});
+		this.carte.addMarker('restaurant', { lat: this.lat, lng: this.lng }, this.name);
 	}
 
 	showOnList() {
@@ -136,18 +127,48 @@ class Restaurant {
 	}
 
 	showComments() {
-		let commentToShow = '';
+		let comments = '';
+
 		this.ratings.forEach((ratings) => {
-			commentToShow += `<div class="comment">${ratings.comment}</div>`;
+			comments += `<div class="comment">${ratings.comment}</div>`;
 		});
-		return commentToShow;
+
+		return comments;
 	}
 
 	showStreetViewImage() {
 		let image = `https://maps.googleapis.com/maps/api/streetview?location=${this.lat},${this.lng}&size=300x200&key=AIzaSyBuqGWfwnf0jqwfu8WJprNaJoLcD00sol4`;
-		let element = document.getElementById(this.id + '-streetView');
+		let element = document.getElementById(this.placeId + '-streetView');
 		$(element).attr('src', image);
 		return;
+	}
+
+	fetchReviews() {
+		let self = this;
+
+		let request = {
+			placeId: this.placeId,
+			fields: ['reviews'],
+		};
+
+		return new Promise((resolve, reject) => {
+			self.carte.placeService.getDetails(request, (result, status) => {
+				if (status == google.maps.places.PlacesServiceStatus.OK) {
+					if ('reviews' in result) {
+						result.reviews.forEach((review) => {
+							self.ratings.push({
+								stars: review.rating,
+								comment: review.text,
+							});
+						});
+
+						self.calculateAverageRating();
+					}
+
+					resolve();
+				}
+			});
+		});
 	}
 }
 

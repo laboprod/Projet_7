@@ -2,7 +2,11 @@
 // import { Restaurant } from './Restaurant.js';
 // import { restaurants } from './restaurants-json.js';
 
+let placesProvider = 'google';
+
 function start() {
+	showModal('loading');
+
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: { lat: 48.8566969, lng: 2.3514616 },
 		zoom: 10,
@@ -11,16 +15,34 @@ function start() {
 	liste = new Liste();
 	carte = new Carte(map, liste);
 
-	carte.getUserPosition();
+	if (placesProvider === 'google') {
+		carte
+			.getUserPosition()
+			.then((UserPosition) => {
+				carte.addMarker('user', UserPosition, 'Vous êtes ici');
+				carte.map.setCenter(UserPosition);
 
-	restaurants.forEach((item) => {
-		let restaurant = new Restaurant(item, carte);
-		liste.add(restaurant);
-	});
+				return carte.fetchNearbyRestaurants(UserPosition);
+			})
+			.then((results) => {
+				return carte.display(results);
+			})
+			.then(() => {
+				hideModal('loading');
+			});
+	} else {
+		restaurants.forEach((item) => {
+			let restaurant = new Restaurant(item, carte);
+			restaurant.calculateAverageRating();
+			liste.add(restaurant);
+		});
+
+		hideModal('loading');
+	}
 
 	liste.showAllRestaurants();
 
-	liste.showFilteredRestaurants();
+	// liste.showFilteredRestaurants();
 
 	liste.listenForFiltering();
 
@@ -49,7 +71,6 @@ function listenForRestaurantAddition(allResto) {
 
 		function submitRestaurant(e) {
 			e.preventDefault();
-			carte.addMarker({ coords: event.latLng, iconImage: 'img/restaurant-icon.png' });
 
 			let item = {
 				restaurantName: document.getElementById('input-name').value,
@@ -66,6 +87,7 @@ function listenForRestaurantAddition(allResto) {
 
 			let restaurant = new Restaurant(item, carte);
 			allResto.push(restaurant);
+			restaurant.calculateAverageRating();
 			restaurant.show();
 
 			hideModal('add-restaurant-modal');
