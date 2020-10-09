@@ -151,7 +151,10 @@ body {
   background: #fff; }
 
 #header {
-  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
   background-image: url(../img/header-bg.jpg);
   background-size: cover;
   background-position: center center;
@@ -171,7 +174,7 @@ span {
 #map {
   position: sticky;
   top: 0;
-  max-height: 100vh; }
+  height: 100vh; }
 
 #filter-option {
   color: black; }
