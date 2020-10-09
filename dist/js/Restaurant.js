@@ -49,6 +49,34 @@ class Restaurant {
 			</div> &nbsp ${this.ratings.length} avis`;
 	}
 
+	fetchReviews() {
+		let self = this;
+
+		let request = {
+			placeId: this.placeId,
+			fields: ['reviews'],
+		};
+
+		return new Promise((resolve, reject) => {
+			self.carte.placeService.getDetails(request, (result, status) => {
+				if (status == google.maps.places.PlacesServiceStatus.OK) {
+					if ('reviews' in result) {
+						result.reviews.forEach((review) => {
+							self.ratings.push({
+								stars: review.rating,
+								comment: review.text,
+							});
+						});
+
+						self.calculateAverageRating();
+					}
+
+					resolve();
+				}
+			});
+		});
+	}
+
 	listenForCommentForm() {
 		document.getElementById('modal-button-' + this.placeId).addEventListener('click', () => {
 			document.getElementById('modal-restaurant-name').innerHTML = this.name;
@@ -60,17 +88,6 @@ class Restaurant {
 				hideModal('add-comment-modal');
 			});
 		});
-	}
-
-	renderHTML() {
-		return `
-			<div class="name" id="${this.placeId}-name">${this.name}</div>
-			<div class="address" id="${this.placeId}-address">${this.address}</div>
-			<img class="streetView" id="${this.placeId}-streetView">
-			<div class="ratings" id="${this.placeId}-ratings">${this.displayStars()}</div>
-			<div class="comment" id="${this.placeId}-comment">${this.showComments()}</div>
-			<button class="button" data-id="${this.placeId}" id="modal-button-${this.placeId}">Ajouter un commentaire</button>
-		`;
 	}
 
 	listenCommentSubmission() {
@@ -95,6 +112,17 @@ class Restaurant {
 			},
 			{ once: true }
 		);
+	}
+
+	renderHTML() {
+		return `
+			<div class="name" id="${this.placeId}-name">${this.name}</div>
+			<div class="address" id="${this.placeId}-address">${this.address}</div>
+			<img class="streetView" id="${this.placeId}-streetView">
+			<div class="ratings" id="${this.placeId}-ratings">${this.displayStars()}</div>
+			<div class="comment" id="${this.placeId}-comment">${this.showComments()}</div>
+			<button class="button" data-id="${this.placeId}" id="modal-button-${this.placeId}">Ajouter un commentaire</button>
+		`;
 	}
 
 	show() {
@@ -141,34 +169,6 @@ class Restaurant {
 		let element = document.getElementById(this.placeId + '-streetView');
 		$(element).attr('src', image);
 		return;
-	}
-
-	fetchReviews() {
-		let self = this;
-
-		let request = {
-			placeId: this.placeId,
-			fields: ['reviews'],
-		};
-
-		return new Promise((resolve, reject) => {
-			self.carte.placeService.getDetails(request, (result, status) => {
-				if (status == google.maps.places.PlacesServiceStatus.OK) {
-					if ('reviews' in result) {
-						result.reviews.forEach((review) => {
-							self.ratings.push({
-								stars: review.rating,
-								comment: review.text,
-							});
-						});
-
-						self.calculateAverageRating();
-					}
-
-					resolve();
-				}
-			});
-		});
 	}
 }
 

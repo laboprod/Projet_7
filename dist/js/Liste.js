@@ -12,6 +12,19 @@ class Liste {
 		this.all = [];
 	}
 
+	emptyHTML() {
+		document.getElementById('restaurants').innerHTML = '';
+	}
+
+	filterRestaurant(min, max) {
+		return this.all.filter((restaurant) => {
+			if (restaurant.averageRating >= min && restaurant.averageRating <= max) {
+				return true;
+			}
+			return false;
+		});
+	}
+
 	listenForFiltering() {
 		document.getElementById('filter').addEventListener('click', () => {
 			let min = $('#rating_min').val();
@@ -24,10 +37,6 @@ class Liste {
 		});
 	}
 
-	emptyHTML() {
-		document.getElementById('restaurants').innerHTML = '';
-	}
-
 	showFilteredRestaurants() {
 		this.filtered.forEach((restaurant) => {
 			restaurant.show();
@@ -37,15 +46,6 @@ class Liste {
 	showAllRestaurants() {
 		this.all.forEach((restaurant) => {
 			restaurant.show();
-		});
-	}
-
-	filterRestaurant(min, max) {
-		return this.all.filter((restaurant) => {
-			if (restaurant.averageRating >= min && restaurant.averageRating <= max) {
-				return true;
-			}
-			return false;
 		});
 	}
 }

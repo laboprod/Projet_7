@@ -39,9 +39,55 @@ class Carte {
 		this.markers = [];
 	}
 
+	display(results) {
+		let self = this;
+
+		return new Promise((resolve, reject) => {
+			results.forEach((result) => {
+				let item = {
+					restaurantName: result.name,
+					address: result.vicinity,
+					lat: result.geometry.location.lat(),
+					long: result.geometry.location.lng(),
+					ratings: [],
+					placeId: result.place_id,
+				};
+
+				let restaurant = new Restaurant(item, self);
+
+				restaurant.fetchReviews().then(() => {
+					self.liste.all.push(restaurant);
+					restaurant.show();
+				});
+			});
+
+			resolve();
+		});
+	}
+
+	fetchNearbyRestaurants(position) {
+		let request = {
+			location: position,
+			radius: 5000,
+			types: ['restaurant'],
+		};
+
+		let self = this;
+
+		return new Promise((resolve, reject) => {
+			self.placeService.nearbySearch(request, (results, status) => {
+				if (status == google.maps.places.PlacesServiceStatus.OK) {
+					resolve(results);
+				} else {
+					reject('an error occured');
+				}
+			});
+		});
+	}
+
 	getUserPosition() {
 		let self = this;
-		return new Promise(function (resolve, reject) {
+		return new Promise((resolve, reject) => {
 			let infoWindow = new google.maps.InfoWindow();
 
 			if (!navigator.geolocation) {
@@ -85,67 +131,5 @@ class Carte {
 					hideModal('loading');
 				});
 		});
-	}
-
-	fetchNearbyRestaurants(position) {
-		let request = {
-			location: position,
-			radius: 5000,
-			types: ['restaurant'],
-		};
-
-		let self = this;
-
-		return new Promise(function (resolve, reject) {
-			self.placeService.nearbySearch(request, function (results, status) {
-				if (status == google.maps.places.PlacesServiceStatus.OK) {
-					resolve(results);
-				} else {
-					reject('an error occured');
-				}
-			});
-		});
-	}
-
-	display(results) {
-		let self = this;
-
-		return new Promise(function (resolve, reject) {
-			results.forEach((result) => {
-				let item = {
-					restaurantName: result.name,
-					address: result.vicinity,
-					lat: result.geometry.location.lat(),
-					long: result.geometry.location.lng(),
-					ratings: [],
-					placeId: result.place_id,
-				};
-
-				let restaurant = new Restaurant(item, self);
-
-				restaurant.fetchReviews().then(() => {
-					self.liste.all.push(restaurant);
-					restaurant.show();
-				});
-			});
-
-			resolve();
-		});
-	}
-
-	createMarker(place) {
-		let infoWindow = new google.maps.InfoWindow();
-		let placeLoc = place.geometry.location;
-		let marker = new google.maps.Marker({
-			map: map,
-			position: placeLoc,
-			icon: 'img/restaurant-icon.png',
-		});
-
-		marker.addListener('click', () => {
-			infoWindow.setContent(place.name);
-			infoWindow.open(map, marker);
-		});
-		return marker;
 	}
 }

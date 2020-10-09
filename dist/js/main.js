@@ -42,8 +42,6 @@ function start() {
 
 	liste.showAllRestaurants();
 
-	// liste.showFilteredRestaurants();
-
 	liste.listenForFiltering();
 
 	listenForEnablingRestaurantAddition(liste.all);
