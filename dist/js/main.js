@@ -44,23 +44,22 @@ function start() {
 
 	liste.listenForFiltering();
 
-	listenForEnablingRestaurantAddition(liste.all);
+	// listenForEnablingRestaurantAddition(liste.all);
+	listenForEnablingRestaurantAddition();
 
 	carte.listenForRightClick();
 }
 
-function listenForEnablingRestaurantAddition(allResto) {
+function listenForEnablingRestaurantAddition() {
 	document.getElementById('add-restaurant-btn').addEventListener('click', () => {
 		alert("Veuillez cliquer sur la carte pour définir l'emplacement du restaurant");
 		map.setOptions({ draggableCursor: 'crosshair' });
-		listenForRestaurantAddition(allResto);
+		listenForRestaurantAddition();
 	});
 }
 
-function listenForRestaurantAddition(allResto) {
-	google.maps.event.addListener(map, 'click', modalToAddRestaurant);
-
-	function modalToAddRestaurant(event) {
+function listenForRestaurantAddition() {
+	google.maps.event.addListener(map, 'click', (event) => {
 		showModal('add-restaurant-modal');
 		document.getElementById('form-add-restaurant').reset();
 		document.getElementById('input-name').focus();
@@ -84,7 +83,7 @@ function listenForRestaurantAddition(allResto) {
 			};
 
 			let restaurant = new Restaurant(item, carte);
-			allResto.push(restaurant);
+			liste.all.push(restaurant);
 			restaurant.calculateAverageRating();
 			restaurant.show();
 
@@ -94,16 +93,16 @@ function listenForRestaurantAddition(allResto) {
 			disableRestaurantAddition();
 		}
 
-		function disableRestaurantAddition() {
-			map.setOptions({ draggableCursor: 'cursor' });
-			google.maps.event.clearListeners(map, 'click');
-		}
-
 		document.getElementById('close-add').addEventListener('click', () => {
 			hideModal('add-restaurant-modal');
 			disableRestaurantAddition();
 		});
-	}
+	});
+}
+
+function disableRestaurantAddition() {
+	map.setOptions({ draggableCursor: 'cursor' });
+	google.maps.event.clearListeners(map, 'click');
 }
 
 function showModal(id) {
