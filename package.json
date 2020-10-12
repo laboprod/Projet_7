@@ -4,7 +4,8 @@
 	"description": "Projet 7 OpenClassrooms",
 	"main": "index.js",
 	"scripts": {
-		"sass": "node-sass -w scss/ -o dist/css/"
+		"sass": "node-sass -w scss/ -o dist/css/",
+		"deploy": "gh-pages -d dist"
 	},
 	"repository": {
 		"type": "git",
@@ -15,7 +16,7 @@
 	"bugs": {
 		"url": "https://github.com/laboprod/Projet_7/issues"
 	},
-	"homepage": "https://github.com/laboprod/Projet_7#readme",
+	"homepage": "https://laboprod.github.io/Projet_7",
 	"dependencies": {
 		"node-sass": "^4.14.1"
 	}
