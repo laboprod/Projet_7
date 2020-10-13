@@ -36,11 +36,10 @@ function start() {
 			restaurant.calculateAverageRating();
 			liste.add(restaurant);
 		});
+		liste.showJsonRestaurants();
 
 		hideModal('loading');
 	}
-
-	liste.showAllRestaurants();
 
 	liste.listenForFiltering();
 

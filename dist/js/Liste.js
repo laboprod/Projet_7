@@ -43,7 +43,7 @@ class Liste {
 		});
 	}
 
-	showAllRestaurants() {
+	showJsonRestaurants() {
 		this.all.forEach((restaurant) => {
 			restaurant.show();
 		});
