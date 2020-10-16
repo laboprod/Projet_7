@@ -1,7 +1,3 @@
-// import { Carte } from './Carte.js';
-// import { Restaurant } from './Restaurant.js';
-// import { restaurants } from './restaurants-json.js';
-
 let placesProvider = 'google';
 
 function start() {
@@ -43,7 +39,6 @@ function start() {
 
 	liste.listenForFiltering();
 
-	// listenForEnablingRestaurantAddition(liste.all);
 	listenForEnablingRestaurantAddition();
 
 	carte.listenForRightClick();

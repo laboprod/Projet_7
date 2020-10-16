@@ -25,7 +25,7 @@ class Restaurant {
 			averageRating = totalRatings / this.ratings.length;
 		}
 
-		let roundedAverageRating = Math.round(averageRating * 10) / 10; // pour avoir 1 decimale
+		let roundedAverageRating = Math.round(averageRating * 10) / 10;
 		this.averageRating = roundedAverageRating;
 	}
 
@@ -171,5 +171,3 @@ class Restaurant {
 		return;
 	}
 }
-
-// export { Restaurant };
